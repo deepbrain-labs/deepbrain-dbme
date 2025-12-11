@@ -1,0 +1,15 @@
+trial_id: "baseline_kv_001"
+seed: 42
+
+model:
+  name: "gpt2"
+  max_length: 1024
+  stride: 512
+
+training:
+  batch_size: 1
+  device: "cpu" # Default to cpu for broad compatibility, script detects cuda if avail
+  loss_type: "ForCausalLMLoss"
+
+retrieval:
+  enabled: false

@@ -1,0 +1,18 @@
+trial_id: "baseline_retrieval_001"
+seed: 42
+
+model:
+  name: "gpt2"
+  max_length: 1024
+  stride: 512
+
+training:
+  batch_size: 1
+  device: "cpu"
+  loss_type: "ForCausalLMLoss"
+
+retrieval:
+  enabled: true
+  k: 3
+  dimension: 768
+  index_type: "Flat"
