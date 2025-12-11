@@ -1,0 +1,24 @@
+name: dbme
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch>=1.13
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=11.7
+  - faiss-gpu
+  - numpy
+  - scipy
+  - scikit-learn
+  - transformers
+  - fastapi
+  - uvicorn
+  - pip
+  - pip:
+    - wandb
+    - accelerate
+    - einops

@@ -1,0 +1,29 @@
+trial_id: "demo_001"
+seed: 42
+config_name: "base_bert"
+
+# Model hyperparameters
+model:
+  name: "bert-base-uncased"
+  max_length: 512
+
+# Training settings
+training:
+  batch_size: 32
+  learning_rate: 2e-5
+  epochs: 3
+  device: "cuda"
+
+# Metrics schema to track
+metrics:
+  - "retention_at_k"
+  - "perplexity"
+  - "hallucination_rate"
+  - "memory_bytes"
+  - "avg_latency_ms"
+
+# FAISS settings
+faiss:
+  dimension: 768
+  index_type: "Flat"
+  metric: "inner_product"
