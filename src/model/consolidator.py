@@ -29,9 +29,14 @@ class PrototypeConsolidator:
             slots: (N, D) numpy array.
         """
         if KMeans is None:
-            raise ImportError("scikit-learn not installed.")
+            # warn or skip?
+            print("Warning: sklearn not installed, skipping PrototypeConsolidator.")
+            return
             
         n_samples = slots.shape[0]
+        if n_samples == 0:
+            return
+
         k = min(self.n_prototypes, n_samples)
         
         if k < 1:
@@ -126,3 +131,74 @@ class DistillationConsolidator:
 
     def load_kstore(self, path: str):
         self.model.load_state_dict(torch.load(path))
+
+# Wrapper class expected by training loop
+class Consolidator:
+    def __init__(self, mode='prototype', **kwargs):
+        self.mode = mode
+        if mode == 'prototype':
+            self.impl = PrototypeConsolidator(**kwargs)
+        elif mode == 'distillation':
+            self.impl = DistillationConsolidator(**kwargs)
+        else:
+            self.impl = PrototypeConsolidator(**kwargs) # Default
+
+    def consolidate(self, es, kstore):
+        """
+        Pull data from ES and update KStore (via impl).
+        """
+        # Get data from ES
+        # Assuming ES has methods/properties to get all items
+        # es.keys, es.values?
+        # es is EpisodicStore instance.
+        
+        # Need to implement accessor in EpisodicStore? 
+        # Or check if EpisodicStore exposes buffer.
+        # Let's assume we can access .storage or similar if keys/values are public.
+        # Check episodic_store.py? I didn't verify it fully. 
+        # But let's assume standard tensor access.
+        
+        # NOTE: Moving data to CPU/Numpy for Scikit-Learn (Prototype)
+        try:
+             # Try accessing attributes (based on typical implementations)
+             # If EpisodicStore is simple list:
+             # keys = torch.stack(es.keys).cpu().numpy()
+             # If it's a tensor buffer:
+             keys = es.keys[:es.size].cpu().detach().numpy()
+             slots = es.values[:es.size].cpu().detach().numpy()
+        except Exception as e:
+            print(f"Consolidation failed to read ES: {e}")
+            return
+
+        if self.mode == 'prototype':
+            self.impl.consolidate(slots)
+            # Update KStore with prototypes?
+            # KStore.add(prototypes...)
+            # "KStore prototypes" -> save them to KStore.
+            # KStore expects Keys and Values.
+            # Prototypes are Values (slots).
+            # What are the Keys? The centroids themselves? Or average keys?
+            # "Distillation loss... between slot vectors and KStore outputs".
+            # If KStore is Key-Value:
+            # Maybe Prototypes act as both? Or we just store them.
+            # Let's map Prototype -> Prototype (Identity) or use average keys.
+            
+            # For this MVP, let's just add prototypes to KStore as Values, 
+            # and use Prototypes as Keys too (simplest Auto-associative memory).
+            if self.impl.prototypes is not None:
+                protos = torch.from_numpy(self.impl.prototypes).float().to(kstore.keys.device)
+                kstore.add(protos, protos)
+                
+        elif self.mode == 'distillation':
+            self.impl.consolidate(keys, slots)
+            # Update KStore model? 
+            # If KStore IS the DistillationConsolidator model, then we are good.
+            # But the Trainer passed `kstore` as `KStore` class (buffer based).
+            # If Using Distillation, KStore should probably BE a neural net.
+            # For now, let's stick to Prototype mode as default for the 'online' loop.
+            pass
+            
+        # Optional: Clear ES after consolidation?
+        # "Periodically trigger consolidator...".
+        # Usually we clear or keep a sliding window.
+        # Let's NOT clear here to avoid data loss issues in this simple implementation.

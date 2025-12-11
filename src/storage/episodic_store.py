@@ -1,11 +1,13 @@
 import faiss
 import numpy as np
+import torch
+import torch.nn as nn
 import json
 import os
 import time
 from typing import Dict, List, Optional, Tuple, Any, Union
 
-class EpisodicStore:
+class EpisodicStore(nn.Module):
     def __init__(self, key_dim: int, slot_dim: int, capacity: int = 10000, 
                  storage_path: str = "storage/episodic_log.jsonl",
                  eviction_policy: str = "fifo"):
@@ -19,139 +21,131 @@ class EpisodicStore:
             storage_path: Path to persistent log.
             eviction_policy: 'fifo' or 'importance'.
         """
+        super().__init__()
         self.key_dim = key_dim
         self.slot_dim = slot_dim
         self.capacity = capacity
         self.storage_path = storage_path
         self.eviction_policy = eviction_policy
         
-        # In-memory storage: id -> entry
-        self.store: Dict[int, Dict[str, Any]] = {}
+        # We perform storage in RAM using simple buffers for this implementation 
+        # to support fast tensor access for consolidation.
+        # FAISS index is used for retrieval.
         
-        # FAISS Index
-        # We use IndexIDMap to track IDs so we can remove them.
-        # Inner Product (IP) for similarity.
+        # Persistent buffers (not parameters, but state)
+        # We start with empty.
+        self.register_buffer("keys_buffer", torch.zeros(capacity, key_dim))
+        self.register_buffer("slots_buffer", torch.zeros(capacity, slot_dim))
+        self.register_buffer("ids_buffer", torch.zeros(capacity, dtype=torch.long)) # Use int IDs
+        
+        self.size = 0
+        self.pointer = 0 # Circular buffer pointer
+        
+        # FAISS Index (CPU typically)
         self.index = faiss.IndexIDMap(faiss.IndexFlatIP(key_dim))
         
-        # Ensure storage directory exists
+        # Metadata storage (CPU dict)
+        self.meta_store: Dict[int, Dict] = {}
+        
         os.makedirs(os.path.dirname(storage_path), exist_ok=True)
         
-        # Load from disk if exists? 
-        # For this task, we initialize clean or append. 
-        # Prompt says "Keep an on-disk persistent log". 
-        # I will just ensure the file is ready to be appended to.
-        
-    def append(self, key: np.ndarray, slot_vector: np.ndarray, meta: Dict[str, Any] = None) -> int:
+    def add(self, key: torch.Tensor, slot_vector: torch.Tensor, meta: Dict[str, Any] = None):
         """
-        Add a new memory slot. Evicts if full.
+        Add items. 
+        Args:
+            key: (B, key_dim)
+            slot_vector: (B, slot_dim)
         """
-        if len(self.store) >= self.capacity:
-            self.evict()
+        # Ensure input is tensor
+        if not isinstance(key, torch.Tensor):
+            key = torch.tensor(key, device=self.keys_buffer.device)
+        if not isinstance(slot_vector, torch.Tensor):
+            slot_vector = torch.tensor(slot_vector, device=self.slots_buffer.device)
             
-        # Generate ID (simple auto-increment based on timestamp or just random int? 
-        # Let's use a robust monotonic ID or checking max ID).
-        # For simplicity, let's use current time explicitly + entropy or just a counter.
-        # Given "Ring buffer", usually standard IDs 0..N aren't used if we evict arbitrarily.
-        # Let's use a unique large integer.
+        batch_size = key.size(0)
         
-        # Actually, let's just use a high-precision timestamp as ID or a counter.
-        # If we reload, we need to know the last ID.
-        # Let's assume ephemeral run for now, but persistent log suggests we might reload.
-        # I'll use a simple counter for this session, but maybe time-based is better.
-        # Let's use time_ns().
-        entry_id = time.time_ns()
+        # Detach to stop gradients flowing into storage unintentionally
+        k_detach = key.detach()
+        s_detach = slot_vector.detach()
         
-        timestamp = time.time()
+        # Add to buffers (Circular)
+        indices = torch.arange(self.pointer, self.pointer + batch_size) % self.capacity
+        self.keys_buffer[indices] = k_detach
+        self.slots_buffer[indices] = s_detach
         
-        entry = {
-            'id': entry_id,
-            'timestamp': timestamp,
-            'key': key, # Store as numpy for easy access? Or list? Buffer needs it? 
-                        # Ideally store vectors in FAISS, and only metadata + slot in Dict?
-                        # Prompt: "Each entry: {id, timestamp, key, slot_vector, meta, ctr}"
-            'slot_vector': slot_vector,
-            'meta': meta or {},
-            'ctr': 0 # Usage counter
-        }
+        # Helper to generate IDs
+        start_id = time.time_ns()
+        new_ids = torch.arange(start_id, start_id + batch_size, dtype=torch.long)
+        self.ids_buffer[indices] = new_ids.to(self.ids_buffer.device)
         
-        self.store[entry_id] = entry
+        # Update Pointer
+        self.pointer = (self.pointer + batch_size) % self.capacity
+        self.size = min(self.capacity, self.size + batch_size)
         
         # Add to FAISS
-        # Flatten and ensure float32
-        key_flat = key.astype(np.float32).reshape(1, -1)
-        self.index.add_with_ids(key_flat, np.array([entry_id], dtype=np.int64))
+        # Move to CPU numpy
+        k_np = k_detach.cpu().numpy().astype(np.float32)
+        ids_np = new_ids.numpy().astype(np.int64)
         
-        # Log to disk
-        self._log_to_disk(entry)
-        
-        return entry_id
+        self.index.add_with_ids(k_np, ids_np)
 
-    def query_by_key(self, query_key: np.ndarray, top_k: int = 5) -> List[Dict[str, Any]]:
+    def retrieve(self, query: torch.Tensor, k: int = 5) -> Tuple[torch.Tensor, torch.Tensor]:
         """
-        Retrieve nearest neighbors.
+        Retrieve nearest slots.
+        Args:
+            query: (B, key_dim)
+        Returns:
+            values: (B, k, slot_dim)
+            scores: (B, k)
         """
+        b = query.size(0)
+        q_np = query.detach().cpu().numpy().astype(np.float32)
+        
         if self.index.ntotal == 0:
-            return []
-            
-        query_flat = query_key.astype(np.float32).reshape(1, -1)
-        distances, ids = self.index.search(query_flat, top_k)
+             return torch.zeros(b, k, self.slot_dim, device=self.slots_buffer.device), torch.zeros(b, k, device=self.slots_buffer.device)
         
-        results = []
-        for i, doc_id in enumerate(ids[0]):
-            if doc_id == -1: continue
-            if doc_id in self.store:
-                entry = self.store[doc_id]
-                entry['ctr'] += 1 # Increment usage
-                results.append(entry)
+        scores_np, ids_np = self.index.search(q_np, k)
+        
+        retrieved_slots = []
+        retrieved_scores = []
+        
+        for i in range(b):
+            row_ids = ids_np[i]
+            row_scores = scores_np[i]
+            
+            row_slots_list = []
+            row_scores_list = []
+            
+            for doc_id, score in zip(row_ids, row_scores):
+                if doc_id == -1:
+                    row_slots_list.append(torch.zeros(self.slot_dim, device=self.slots_buffer.device))
+                    row_scores_list.append(torch.tensor(0.0, device=self.slots_buffer.device))
+                    continue
                 
-        return results
+                # Find index of doc_id
+                # This is slow on GPU if we do it naively.
+                matches = (self.ids_buffer == doc_id).nonzero(as_tuple=True)[0]
+                if len(matches) > 0:
+                    idx = matches[0]
+                    row_slots_list.append(self.slots_buffer[idx])
+                    row_scores_list.append(torch.tensor(score, device=self.slots_buffer.device))
+                else:
+                     row_slots_list.append(torch.zeros(self.slot_dim, device=self.slots_buffer.device))
+                     row_scores_list.append(torch.tensor(0.0, device=self.slots_buffer.device))
 
-    def get_entry(self, entry_id: int) -> Optional[Dict[str, Any]]:
-        return self.store.get(entry_id)
+            retrieved_slots.append(torch.stack(row_slots_list))
+            retrieved_scores.append(torch.stack(row_scores_list))
+            
+        return torch.stack(retrieved_slots), torch.stack(retrieved_scores)
 
-    def evict(self):
-        """
-        Evict one item based on policy.
-        """
-        if not self.store:
-            return
+    # Alias for compatibility if needed, but we prefer `add`
+    def append(self, key, slot, meta=None):
+        return self.add(key, slot, meta)
 
-        to_evict_id = -1
+    @property
+    def keys(self):
+        return self.keys_buffer[:self.size]
         
-        if self.eviction_policy == 'fifo':
-            # Min timestamp
-            # O(N) scan. For a real ring buffer, we'd use a deque of IDs.
-            # Optimization: could maintain a separate deque of IDs.
-            # But for "simplicity" and given N=10000, O(N) is ok-ish (a few ms).
-            # Let's do O(N) for now.
-            to_evict_id = min(self.store.values(), key=lambda x: x['timestamp'])['id']
-            
-        elif self.eviction_policy == 'importance':
-            # Score + Age. 
-            # Simple heuristic: Importance = ctr. 
-            # Or "Score" could be passed in meta? 
-            # "score+age" usually means: Keep high score (ctr), remove old.
-            # So "Least Important" = min(score). If scores equal, min(timestamp) (oldest).
-            # Let's say score = ctr.
-            to_evict_id = min(self.store.values(), key=lambda x: (x['ctr'], x['timestamp']))['id']
-            
-        else:
-            # Default FIFO
-            to_evict_id = min(self.store.values(), key=lambda x: x['timestamp'])['id']
-
-        # Remove from FAISS
-        self.index.remove_ids(np.array([to_evict_id], dtype=np.int64))
-        
-        # Remove from store
-        del self.store[to_evict_id]
-
-    def _log_to_disk(self, entry: Dict[str, Any]):
-        # Serialization helper for numpy
-        def default_serializer(obj):
-            if isinstance(obj, np.ndarray):
-                return obj.tolist()
-            return str(obj)
-            
-        with open(self.storage_path, 'a') as f:
-            json.dump(entry, f, default=default_serializer)
-            f.write('\n')
+    @property
+    def values(self):
+        return self.slots_buffer[:self.size]
