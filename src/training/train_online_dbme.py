@@ -71,6 +71,17 @@ class DeepBrainTrainer:
         # Losses
         self.criterion_lm = nn.CrossEntropyLoss()
         self.criterion_mse = nn.MSELoss()
+
+        # HE Decoder for auxiliary reconstruction loss
+        self.he_decoder = nn.Sequential(
+            nn.Linear(self.he.slot_dim, self.he.input_dim),
+            nn.ReLU()
+        ).to(self.device)
+        self.optimizer_he_decoder = optim.AdamW(
+            self.he_decoder.parameters(),
+            lr=config.get('he_lr', 3e-4), # Use same LR as HE
+            weight_decay=0.01
+        )
         
     def train_online(self, sessions_loader: DataLoader, num_epochs: int = 1):
         """
@@ -147,16 +158,17 @@ class DeepBrainTrainer:
                     logits_pre, ctx_emb = self.lm(utterance)
                     
                     # Step 2: Write to ES
-                    # HE Encode
-                    # "HE.write(...) and append to ES"
-                    # We might backprop into HE if desired. Prompt: "update LM adapter + HE (if desired)"
-                    # So we keep graph if we want to train HE. 
-                    # BUT we usually write *detached* embeddings to storage to break BPTT through time/storage, 
-                    # unless using specific recurrent techniques.
-                    # Let's detach for storage to be safe and simple.
-                    
+                    # HE Encode and Write to ES
+                    # The key is to use the `slot` tensor for loss calculation *before* detaching it for storage.
                     key, slot, _ = self.he.write(ctx_emb) # (D_k), (D_slot)
-                    self.es.add(key.unsqueeze(0), slot.unsqueeze(0)) # Add to ES
+                    
+                    # SAFER APPROACH: Use slot in a differentiable path, then save a detached copy.
+                    # Add auxiliary reconstruction loss for HE
+                    recon_emb = self.he_decoder(slot)
+                    loss_he_recon = self.criterion_mse(recon_emb, ctx_emb.detach()) # Reconstruct original embedding
+
+                    # Now, add a detached copy to the episodic store
+                    self.es.add(key.unsqueeze(0).detach(), slot.unsqueeze(0).detach())
                     
                     # Step 3: Retrieval & Fusion (For Queries)
                     # "For queries: use router to retrieve memory and fuse to LM"
@@ -275,18 +287,20 @@ class DeepBrainTrainer:
                     loss_distill = 0.1 * loss_distill
                     
                     # Total Loss
-                    loss = loss_lm + loss_distill
+                    loss = loss_lm + loss_distill + loss_he_recon
                     
                     # Backprop
                     self.optimizer_lm.zero_grad()
                     self.optimizer_he.zero_grad()
                     self.optimizer_router.zero_grad()
+                    self.optimizer_he_decoder.zero_grad()
                     
                     loss.backward()
                     
                     self.optimizer_lm.step()
-                    self.optimizer_he.step() # "if desired"
+                    self.optimizer_he.step()
                     self.optimizer_router.step() 
+                    self.optimizer_he_decoder.step()
                     
                     session_loss += loss.item()
                     step += 1

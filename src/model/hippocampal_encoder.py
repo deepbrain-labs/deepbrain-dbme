@@ -94,17 +94,6 @@ class HippocampalEncoder(nn.Module):
         else:
             x = context_embedding
 
-        with torch.no_grad(): # Inference mode usually for 'write' unless training the writer online
-            # If we need gradients flowing back from a 'write' step (e.g. meta-learning), remove no_grad.
-            # Prompt says "Ensure ... gradients flow (sanity check via small backward pass)".
-            # So I should NOT disable gradients here explicitly if the input requires grad.
-            # But usually 'write' implies committing to memory.
-            # Let's verify if `context_embedding` requires grad.
-            # The prompt implies sanity check gradients flow. 
-            # I will remove torch.no_grad() or make it conditional?
-            # Safe default: Let Pytorch handle autograd. If user wraps in no_grad, it's no_grad.
-            pass
-
         key, slot, _ = self.forward(x)
         
         return key.squeeze(0), slot.squeeze(0), meta

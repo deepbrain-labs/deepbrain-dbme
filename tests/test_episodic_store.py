@@ -64,17 +64,10 @@ class TestEpisodicStore(unittest.TestCase):
             s = np.random.randn(slot_dim).astype(np.float32)
             ids.append(store.append(k, s, {'i': i}))
             
-        # 'use' the second item (index 1) to increase its counter
-        # To do this, we need to artificially specific ctr or query it?
-        # get_entry returns reference?
-        entry = store.get_entry(ids[0])
-        entry['ctr'] = 10 # High importance
-        
-        entry = store.get_entry(ids[1])
-        entry['ctr'] = 0 # Low importance
-        
-        entry = store.get_entry(ids[2])
-        entry['ctr'] = 5 # Medium
+        # Update meta 'ctr' for importance
+        store.update_entry_meta(ids[0], {'ctr': 10}) # High importance
+        store.update_entry_meta(ids[1], {'ctr': 0}) # Low importance
+        store.update_entry_meta(ids[2], {'ctr': 5}) # Medium
         
         # Add 4th item
         k = np.random.randn(key_dim).astype(np.float32)
