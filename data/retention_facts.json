@@ -1,0 +1,37 @@
+[
+    {
+        "fact_id": "F001",
+        "fact": "The first programmable computer was the Z1, created by Konrad Zuse.",
+        "query": "Who created the first programmable computer?",
+        "injected_at_step": 0,
+        "query_at_steps": [0, 100, 500, 1000]
+    },
+    {
+        "fact_id": "F002",
+        "fact": "Guido van Rossum is the inventor of the Python programming language.",
+        "query": "Who invented Python?",
+        "injected_at_step": 0,
+        "query_at_steps": [0, 100, 500, 1000]
+    },
+    {
+        "fact_id": "F003",
+        "fact": "The Pacific Ocean is the largest and deepest of the world's five oceans.",
+        "query": "Which ocean is the largest?",
+        "injected_at_step": 0,
+        "query_at_steps": [0, 100, 500, 1000]
+    },
+    {
+        "fact_id": "F004",
+        "fact": "Mount Everest is Earth's highest mountain above sea level, located in the Himalayas.",
+        "query": "Where is Mount Everest?",
+        "injected_at_step": 0,
+        "query_at_steps": [0, 100, 500, 1000]
+    },
+    {
+        "fact_id": "F005",
+        "fact": "The capital of Australia is Canberra.",
+        "query": "What is the capital of Australia?",
+        "injected_at_step": 0,
+        "query_at_steps": [0, 100, 500, 1000]
+    }
+]

@@ -4,6 +4,46 @@ import random
 import datetime
 from typing import List, Dict
 
+import torch
+from torch.utils.data import Dataset
+
+class SyntheticData(Dataset):
+    """Custom Dataset for synthetic session data."""
+    def __init__(self, file_path, tokenizer, max_length=1024):
+        self.tokenizer = tokenizer
+        self.max_length = max_length
+        self.sessions = []
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                session_data = json.loads(line)
+                # Concatenate all utterances in a session to form a long context
+                long_context = " ".join(session_data['utterances'])
+                self.sessions.append(long_context)
+
+    def __len__(self):
+        return len(self.sessions)
+
+    def __getitem__(self, idx):
+        session_text = self.sessions[idx]
+        
+        # Tokenize the text
+        encoding = self.tokenizer(
+            session_text,
+            add_special_tokens=True,
+            max_length=self.max_length,
+            padding='max_length',
+            truncation=True,
+            return_tensors='pt'
+        )
+        
+        # .squeeze(0) to remove the batch dimension pytorch adds
+        return {
+            'input_ids': encoding['input_ids'].squeeze(0),
+            'attention_mask': encoding['attention_mask'].squeeze(0)
+        }
+
+
 def generate_session(session_id: str, start_time: datetime.datetime) -> Dict:
     topics = ["weather", "food", "movies", "travel", "hobbies"]
     facts_template = [

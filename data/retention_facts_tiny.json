@@ -1,0 +1,9 @@
+[
+    {
+        "fact_id": "F001",
+        "fact": "The sky is blue.",
+        "query": "What color is the sky?",
+        "injected_at_step": 0,
+        "query_at_steps": [0, 10]
+    }
+]

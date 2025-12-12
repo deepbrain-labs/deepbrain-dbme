@@ -1,0 +1,27 @@
+[
+    {
+        "query": "Who is the CEO of Twitter?",
+        "original": "Jack Dorsey",
+        "stale": "Elon Musk"
+    },
+    {
+        "query": "What is the capital of Brazil?",
+        "original": "Rio de Janeiro",
+        "stale": "Brasília"
+    },
+    {
+        "query": "Who wrote the book '1984'?",
+        "original": "George Orwell",
+        "stale": "Aldous Huxley"
+    },
+    {
+        "query": "What is the currency of Japan?",
+        "original": "Yuan",
+        "stale": "Yen"
+    },
+    {
+        "query": "Who was the first person to step on the moon?",
+        "original": "Buzz Aldrin",
+        "stale": "Neil Armstrong"
+    }
+]

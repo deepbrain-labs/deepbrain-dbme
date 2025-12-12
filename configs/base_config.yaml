@@ -1,11 +1,16 @@
 trial_id: "demo_001"
 seed: 42
-config_name: "base_bert"
+config_name: "base_gpt2"
 
 # Model hyperparameters
 model:
-  name: "bert-base-uncased"
+  name: "gpt2"
   max_length: 512
+  input_dim: 768
+  hidden_dim: 768
+  slot_dim: 256
+  key_dim: 128
+  vocab_size: 50257 # gpt2
 
 # Training settings
 training:

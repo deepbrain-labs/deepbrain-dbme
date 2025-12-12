@@ -108,35 +108,75 @@ class EpisodicStore(nn.Module):
         else:
             return [int(i.item()) for i in new_ids]
 
-    def retrieve(self, query: torch.Tensor, k: int = 5) -> Tuple[torch.Tensor, torch.Tensor]:
+    def retrieve(self, query: torch.Tensor, k: int = 5, router_confidence: float = 1.0) -> Dict[str, Any]:
         b = query.size(0)
         q_np = query.detach().cpu().numpy().astype(np.float32)
+        if q_np.ndim == 1:
+            q_np = np.expand_dims(q_np, axis=0)
         if self.index.ntotal == 0:
-            return torch.zeros(b, k, self.slot_dim, device=self.slots_buffer.device), torch.zeros(b, k, device=self.slots_buffer.device)
+            return {
+                "retrieved_from": "episodic",
+                "slots": torch.zeros(b, k, self.slot_dim, device=self.slots_buffer.device),
+                "scores": torch.zeros(b, k, device=self.slots_buffer.device),
+                "ids": [],
+                "timestamp": time.time_ns(),
+                "router_confidence": router_confidence,
+            }
+        
         scores_np, ids_np = self.index.search(q_np, k)
+        
+        if b == 1 and ids_np.ndim == 1:
+            ids_np = np.expand_dims(ids_np, axis=0)
+            scores_np = np.expand_dims(scores_np, axis=0)
+
         retrieved_slots = []
         retrieved_scores = []
+        retrieved_ids = []
         for i in range(b):
+            if i >= ids_np.shape[0]:
+                break
             row_ids = ids_np[i]
             row_scores = scores_np[i]
             row_slots_list = []
             row_scores_list = []
+            row_ids_list = []
             for doc_id, score in zip(row_ids, row_scores):
                 if doc_id == -1:
                     row_slots_list.append(torch.zeros(self.slot_dim, device=self.slots_buffer.device))
                     row_scores_list.append(torch.tensor(0.0, device=self.slots_buffer.device))
+                    row_ids_list.append(-1)
                     continue
                 matches = (self.ids_buffer == doc_id).nonzero(as_tuple=True)[0]
                 if len(matches) > 0:
                     idx = matches[0]
                     row_slots_list.append(self.slots_buffer[idx])
                     row_scores_list.append(torch.tensor(score, device=self.slots_buffer.device))
+                    row_ids_list.append(doc_id)
                 else:
                     row_slots_list.append(torch.zeros(self.slot_dim, device=self.slots_buffer.device))
                     row_scores_list.append(torch.tensor(0.0, device=self.slots_buffer.device))
+                    row_ids_list.append(-1)
             retrieved_slots.append(torch.stack(row_slots_list))
             retrieved_scores.append(torch.stack(row_scores_list))
-        return torch.stack(retrieved_slots), torch.stack(retrieved_scores)
+            retrieved_ids.append(row_ids_list)
+            
+        return {
+            "retrieved_from": "episodic",
+            "slots": torch.stack(retrieved_slots),
+            "scores": torch.stack(retrieved_scores),
+            "ids": retrieved_ids,
+            "timestamp": time.time_ns(),
+            "router_confidence": router_confidence,
+        }
+
+    def clear(self):
+        self.keys_buffer.zero_()
+        self.slots_buffer.zero_()
+        self.ids_buffer.zero_()
+        self.size = 0
+        self.pointer = 0
+        self.index.reset()
+        self.meta_store = {}
 
     def append(self, key, slot, meta=None):
         return self.add(key, slot, meta)
@@ -172,14 +212,11 @@ class EpisodicStore(nn.Module):
             key = torch.tensor(key, device=self.keys_buffer.device, dtype=self.keys_buffer.dtype)
         if key.ndim == 1:
             key = key.unsqueeze(0)
-        slots, scores = self.retrieve(key, k=top_k)
-        k_np = key.detach().cpu().numpy().astype(np.float32)
-        if self.index.ntotal == 0:
-            return []
-        _, ids_np = self.index.search(k_np, top_k)
-        ids = ids_np[0] if ids_np.shape[0] > 0 else []
+        retrieval_results = self.retrieve(key, k=top_k)
+        scores = retrieval_results["scores"]
+        ids = retrieval_results["ids"]
         results = []
-        for i, doc_id in enumerate(ids):
+        for i, doc_id in enumerate(ids[0]):
             if doc_id == -1:
                 continue
             entry = self.get_entry(int(doc_id))
