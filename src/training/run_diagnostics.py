@@ -37,11 +37,21 @@ def run_diagnostics():
     }
     
     hidden_dim = 256
-    lm = LanguageModelWithAdapter(input_dim=hidden_dim, hidden_dim=hidden_dim, vocab_size=1000, adapter_dim=64)
-    he = HippocampalEncoder(input_dim=hidden_dim, slot_dim=256, key_dim=256)
+
+    from transformers import AutoConfig, AutoModelForCausalLM
+    model_config = AutoConfig.from_pretrained('gpt2')
+    model_config.vocab_size = 1000
+    model_config.n_embd = hidden_dim
+    model_config.n_head = 4
+    model_config.n_layer = 2
+    base_model = AutoModelForCausalLM.from_config(model_config)
+
+    slot_dim = 256
+    lm = LanguageModelWithAdapter(base_model, input_dim=hidden_dim, hidden_dim=hidden_dim, slot_dim=slot_dim, adapter_dim=64)
+    he = HippocampalEncoder(input_dim=hidden_dim, slot_dim=slot_dim, key_dim=256)
     router = Router(input_dim=hidden_dim, hidden_dim=64)
-    es = EpisodicStore(key_dim=256, slot_dim=256, capacity=100, storage_path="storage/test_diagnostics/es_log.jsonl")
-    kstore = KStore(key_dim=256, value_dim=256, capacity=100)
+    es = EpisodicStore(key_dim=256, slot_dim=slot_dim, capacity=100, storage_path="storage/test_diagnostics/es_log.jsonl")
+    kstore = KStore(key_dim=256, value_dim=slot_dim, capacity=100)
     consolidator = Consolidator()
     
     trainer = DeepBrainTrainer(lm, he, router, es, kstore, consolidator, config)
@@ -74,19 +84,21 @@ def run_diagnostics():
     print("\n[Diagnostic] Checking Gradient Flow...")
     
     logits_pre, ctx_emb = trainer.lm(utterance)
-    key, slot, _ = trainer.he.write(ctx_emb)
+    key, slot, _ = trainer.he.write(ctx_emb[:, -1, :])
     trainer.es.add(key.unsqueeze(0), slot.unsqueeze(0))
     
-    route_choice, route_probs = trainer.router.route(ctx_emb)
+    route_choice, route_probs = trainer.router.route(ctx_emb[:, -1, :])
     print(f"  Router Probs: {route_probs.detach().cpu().numpy()}")
     
-    es_vals, _ = trainer.es.retrieve(key.unsqueeze(0))
-    k_vals, _ = trainer.kstore.retrieve(key.unsqueeze(0))
+    es_results = trainer.es.retrieve(key.unsqueeze(0))
+    es_vals = es_results["slots"]
+    k_results = trainer.kstore.retrieve(key.unsqueeze(0))
+    k_vals = k_results["slots"]
     
     # Mock soft fusion for grad check
     p_es = route_probs[:, 0].view(-1, 1, 1)
     p_k = route_probs[:, 1].view(-1, 1, 1)
-    memory_context = p_es * es_vals.mean(dim=1) + p_k * k_vals.mean(dim=1)
+    memory_context = p_es * es_vals + p_k * k_vals
     
     logits_fused, _ = trainer.lm(utterance, memory_context=memory_context)
     
@@ -158,8 +170,10 @@ def run_diagnostics():
     print("\n[Diagnostic] Retrieval Sanity...")
     # Query with the same key
     q_key = key.unsqueeze(0)
-    ret_slots, ret_scores = trainer.es.retrieve(q_key, k=1)
-    print(f"  Self-Retrieval Score: {ret_scores.item():.4f}")
+    ret_results = trainer.es.retrieve(q_key, k=1)
+    ret_slots = ret_results["slots"]
+    ret_scores = ret_results["scores"]
+    print(f"  Self-Retrieval Score: {ret_scores[0,0].item():.4f}")
     # Should be close to 1.0 (normalized) or high dot product.
     # FAISS IP. If key and slot normalized?
     # HE output might not be normalized.
@@ -208,9 +222,10 @@ def run_diagnostics():
     
     # 2. Retrieve
     # Verify we can find it
-    ret_s, ret_score = trainer.es.retrieve(k.unsqueeze(0), k=1)
+    ret_results = trainer.es.retrieve(k.unsqueeze(0), k=1)
+    ret_slots = ret_results["slots"]
     # Check if retrieved slot is close to s
-    dist = torch.norm(ret_s - s.unsqueeze(0))
+    dist = torch.norm(ret_slots.squeeze() - s)
     print(f"  Probe Distance: {dist.item():.4f}")
     if dist < 1e-3:
         print("  [PASS] Perfect Recall of inserted fact.")

@@ -15,6 +15,7 @@ def load_config(config_path):
 def main():
     parser = argparse.ArgumentParser(description="DeepBrain DBME Entry Point")
     parser.add_argument("--config", type=str, default="configs/base_config.yaml", help="Path to config file")
+    parser.add_argument("--ablation", type=str, help="Specify an ablation study to run")
     args = parser.parse_args()
 
     print(f"Loading config from {args.config}...")

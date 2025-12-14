@@ -4,12 +4,13 @@ import torch.nn.functional as F
 from typing import Tuple, Dict
 
 class Router(nn.Module):
-    def __init__(self, input_dim: int, hidden_dim: int = 64):
+    def __init__(self, input_dim: int, hidden_dim: int = 64, mode: str = 'learned'):
         """
         Router - Decides between Episodic Store (ES) and Long-term Store (KStore).
         Output: Probability distribution over [ES, KStore].
         """
         super().__init__()
+        self.mode = mode
         self.net = nn.Sequential(
             nn.Linear(input_dim, hidden_dim),
             nn.LayerNorm(hidden_dim),

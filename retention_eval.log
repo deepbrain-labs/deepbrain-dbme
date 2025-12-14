@@ -1,0 +1,3963 @@
+--- Running evaluation with seed 0 ---
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 0 ---
+Results: Recall@1: 0.1667, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 9 facts...
+Fact injection complete.
+
+--- Evaluating at interval 1 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 2 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 3 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 4 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 12 facts...
+Fact injection complete.
+
+--- Evaluating at interval 5 ---
+Results: Recall@1: 0.0833, Recall@10: 0.0833
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 6 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 7 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 8 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 9 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 10 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 11 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 12 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 13 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 14 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 15 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 16 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 17 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 18 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 19 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 20 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 21 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 22 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 23 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 24 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 25 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 26 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 27 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 28 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 29 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 30 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 31 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 32 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 33 ---
+Results: Recall@1: 0.2000, Recall@10: 0.4000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 34 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 35 ---
+Results: Recall@1: 0.1429, Recall@10: 0.2857
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 36 ---
+Results: Recall@1: 0.1250, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 37 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 38 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 39 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 40 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 41 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 42 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 43 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 44 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 45 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 46 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 47 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 48 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 8 facts...
+Fact injection complete.
+
+--- Evaluating at interval 49 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 50 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 51 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 52 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 53 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 54 ---
+Results: Recall@1: 0.1111, Recall@10: 0.2222
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 55 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 56 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 57 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 58 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 59 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 60 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 61 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 62 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 63 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 64 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 65 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 66 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 67 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 68 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 69 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 70 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 71 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 72 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 73 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 74 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 75 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 76 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 77 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 78 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 79 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 80 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 81 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 82 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 83 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 85 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 86 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 87 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 88 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 89 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 90 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 91 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 92 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 93 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 94 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 95 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 96 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 97 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 98 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 99 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 100 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 101 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 102 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 103 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 104 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 105 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 106 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 107 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 108 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 109 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 110 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 111 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 112 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 113 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 114 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 115 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 116 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 117 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 118 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 119 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 120 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 121 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 123 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 125 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 126 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 127 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 128 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 3 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 131 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 132 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 133 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 134 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 135 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 137 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 139 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 140 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 141 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 142 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 143 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 145 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 146 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+--- Running evaluation with seed 1 ---
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 0 ---
+Results: Recall@1: 0.1667, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 9 facts...
+Fact injection complete.
+
+--- Evaluating at interval 1 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 2 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 3 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 4 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 12 facts...
+Fact injection complete.
+
+--- Evaluating at interval 5 ---
+Results: Recall@1: 0.0833, Recall@10: 0.0833
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 6 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 7 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 8 ---
+Results: Recall@1: 0.2000, Recall@10: 0.4000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 9 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 10 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 11 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 12 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 13 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 14 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 15 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 16 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 17 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 18 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 19 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 20 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 21 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 22 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 23 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 24 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 25 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 26 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 27 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 28 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 29 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 30 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 31 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 32 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 33 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 34 ---
+Results: Recall@1: 0.1250, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 35 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 36 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 37 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 38 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 39 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 40 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 41 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 42 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 43 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 44 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 45 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 46 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 47 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 48 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 8 facts...
+Fact injection complete.
+
+--- Evaluating at interval 49 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 50 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 51 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 52 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 53 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 54 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 55 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 56 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 57 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 58 ---
+Results: Recall@1: 0.1429, Recall@10: 0.2857
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 59 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 60 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 61 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 62 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 63 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 64 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 65 ---
+Results: Recall@1: 0.3333, Recall@10: 0.6667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 66 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 67 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 68 ---
+Results: Recall@1: 0.2000, Recall@10: 0.4000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 69 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 70 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 71 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 72 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 73 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 74 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 75 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 76 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 77 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 78 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 79 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 80 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 81 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 82 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 83 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 85 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 86 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 87 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 88 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 89 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 90 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 91 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 92 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 93 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 94 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 95 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 96 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 97 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 98 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 99 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 100 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 101 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 102 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 103 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 104 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 105 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 106 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 107 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 108 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 109 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 110 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 111 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 112 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 113 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 114 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 115 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 116 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 117 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 118 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 119 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 120 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 121 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 123 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 125 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 126 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 127 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 128 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 3 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 131 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 132 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 133 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 134 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 135 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 137 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 139 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 140 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 141 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 142 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 143 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 145 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 146 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+--- Running evaluation with seed 2 ---
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 0 ---
+Results: Recall@1: 0.1667, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 9 facts...
+Fact injection complete.
+
+--- Evaluating at interval 1 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 2 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 3 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 4 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 12 facts...
+Fact injection complete.
+
+--- Evaluating at interval 5 ---
+Results: Recall@1: 0.0833, Recall@10: 0.0833
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 6 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 7 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 8 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 9 ---
+Results: Recall@1: 0.1429, Recall@10: 0.2857
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 10 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 11 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 12 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 13 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 14 ---
+Results: Recall@1: 0.1250, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 15 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 16 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 17 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 18 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 19 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 20 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 21 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 22 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 23 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 24 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 25 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 26 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 27 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 28 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 29 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 30 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 31 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 32 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 33 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 34 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 35 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 36 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 37 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 38 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 39 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 40 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 41 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 42 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 43 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 44 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 45 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 46 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 47 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 48 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 8 facts...
+Fact injection complete.
+
+--- Evaluating at interval 49 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 50 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 51 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 52 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 53 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 54 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 55 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 56 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 57 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 58 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 59 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 60 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 61 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 62 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 63 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 64 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 65 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 66 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 67 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 68 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 69 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 70 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 71 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 72 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 73 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 74 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 75 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 76 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 77 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 78 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 79 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 80 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 81 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 82 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 83 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 85 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 86 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 87 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 88 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 89 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 90 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 91 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 92 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 93 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 94 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 95 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 96 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 97 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 98 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 99 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 100 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 101 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 102 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 103 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 104 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 105 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 106 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 107 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 108 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 109 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 110 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 111 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 112 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 113 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 114 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 115 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 116 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 117 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 118 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 119 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 120 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 121 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 123 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 125 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 126 ---
+Results: Recall@1: 0.5000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 127 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 128 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 3 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 131 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 132 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 133 ---
+Results: Recall@1: 0.3333, Recall@10: 0.6667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 134 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 135 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 137 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 139 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 140 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 141 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 142 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 143 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 145 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 146 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+--- Running evaluation with seed 3 ---
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 0 ---
+Results: Recall@1: 0.1667, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 9 facts...
+Fact injection complete.
+
+--- Evaluating at interval 1 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 2 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 3 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 4 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 12 facts...
+Fact injection complete.
+
+--- Evaluating at interval 5 ---
+Results: Recall@1: 0.0833, Recall@10: 0.0833
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 6 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 7 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 8 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 9 ---
+Results: Recall@1: 0.1429, Recall@10: 0.2857
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 10 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 11 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 12 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 13 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 14 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 15 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 16 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 17 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 18 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 19 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 20 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 21 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 22 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 23 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 24 ---
+Results: Recall@1: 0.1250, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 25 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 26 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 27 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 28 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 29 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 30 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 31 ---
+Results: Recall@1: 0.0909, Recall@10: 0.1818
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 32 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 33 ---
+Results: Recall@1: 0.2000, Recall@10: 0.4000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 34 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 35 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 36 ---
+Results: Recall@1: 0.1250, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 37 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 38 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 39 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 40 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 41 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 42 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 43 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 44 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 45 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 46 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 47 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 48 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 8 facts...
+Fact injection complete.
+
+--- Evaluating at interval 49 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 50 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 51 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 52 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 53 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 54 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 55 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 56 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 57 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 58 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 59 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 60 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 61 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 62 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 63 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 64 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 65 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 66 ---
+Results: Recall@1: 0.2000, Recall@10: 0.4000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 67 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 68 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 69 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 70 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 71 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 72 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 73 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 74 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 75 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 76 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 77 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 78 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 79 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 80 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 81 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 82 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 83 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 85 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 86 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 87 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 88 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 89 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 90 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 91 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 92 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 93 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 94 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 95 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 96 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 97 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 98 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 99 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 100 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 101 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 102 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 103 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 104 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 105 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 106 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 107 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 108 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 109 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 110 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 111 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 112 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 113 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 114 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 115 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 116 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 117 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 118 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 119 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 120 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 121 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 123 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 125 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 126 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 127 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 128 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 3 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 131 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 132 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 133 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 134 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 135 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 137 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 139 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 140 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 141 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 142 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 143 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 145 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 146 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+--- Running evaluation with seed 4 ---
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 0 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 9 facts...
+Fact injection complete.
+
+--- Evaluating at interval 1 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 2 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 3 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 4 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 12 facts...
+Fact injection complete.
+
+--- Evaluating at interval 5 ---
+Results: Recall@1: 0.0833, Recall@10: 0.0833
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 6 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 7 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 8 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 9 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 10 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 11 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 12 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 13 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 14 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 15 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 16 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 17 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 18 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 19 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 20 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 21 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 22 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 23 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 24 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 25 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 26 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 27 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 28 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 29 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 30 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 31 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 32 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 33 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 34 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 5 facts...
+Fact injection complete.
+
+--- Evaluating at interval 35 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 36 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 37 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 38 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 39 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 40 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 7 facts...
+Fact injection complete.
+
+--- Evaluating at interval 41 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 42 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 4 facts...
+Fact injection complete.
+
+--- Evaluating at interval 43 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 44 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 45 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 1 facts...
+Fact injection complete.
+
+--- Evaluating at interval 46 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 2 facts...
+Fact injection complete.
+
+--- Evaluating at interval 47 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 6 facts...
+Fact injection complete.
+
+--- Evaluating at interval 48 ---
+Results: Recall@1: 0.1111, Recall@10: 0.1111
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 8 facts...
+Fact injection complete.
+
+--- Evaluating at interval 49 ---
+Results: Recall@1: 0.0909, Recall@10: 0.0909
+Simulating 1 training steps with distractor data...
+Simulation complete.
+Injecting 3 facts...
+Fact injection complete.
+
+--- Evaluating at interval 50 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 51 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 52 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 53 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 54 ---
+Results: Recall@1: 0.1111, Recall@10: 0.2222
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 55 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 56 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 57 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 58 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 59 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 60 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 61 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 62 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 63 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 64 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 65 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 66 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 67 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 68 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 69 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 70 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 71 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 72 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 73 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 74 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 75 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 76 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 77 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 78 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 79 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 80 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 81 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 82 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 83 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 85 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 86 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 87 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 88 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 89 ---
+Results: Recall@1: 0.1250, Recall@10: 0.1250
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 90 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 91 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 92 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 93 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 94 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 95 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 96 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 97 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 98 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 99 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 100 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 101 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 102 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 103 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 104 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 105 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 106 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 107 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 108 ---
+Results: Recall@1: 0.2000, Recall@10: 0.2000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 109 ---
+Results: Recall@1: 0.1429, Recall@10: 0.1429
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 110 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 111 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 112 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 113 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 114 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 115 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 116 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 117 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 118 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 119 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 120 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 121 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 123 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 125 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 126 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 127 ---
+Results: Recall@1: 0.1667, Recall@10: 0.1667
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 128 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 3 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 131 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 132 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 133 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 134 ---
+Results: Recall@1: 0.2500, Recall@10: 0.2500
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 135 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 137 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 139 ---
+Results: Recall@1: 0.2500, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 140 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 141 ---
+Results: Recall@1: 0.5000, Recall@10: 0.5000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 142 ---
+Results: Recall@1: 0.3333, Recall@10: 0.3333
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 143 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 2 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 145 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+Simulating 1 training steps with distractor data...
+Simulation complete.
+
+--- Evaluating at interval 146 ---
+Results: Recall@1: 1.0000, Recall@10: 1.0000
+
+--- Aggregating results and plotting ---
+Retention curve plot saved to evaluation_results/retention_curve.png

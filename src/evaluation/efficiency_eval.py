@@ -28,7 +28,8 @@ class EfficiencyEvaluator:
         lm = LanguageModelWithAdapter(
             base_model,
             input_dim=model_config['input_dim'], 
-            hidden_dim=model_config['hidden_dim']
+            hidden_dim=model_config['hidden_dim'],
+            slot_dim=model_config['slot_dim']
         ).to(self.device)
         he = HippocampalEncoder(input_dim=model_config['input_dim'], slot_dim=model_config['slot_dim'], key_dim=model_config['key_dim']).to(self.device)
         es = EpisodicStore(slot_dim=model_config['slot_dim'], key_dim=model_config['key_dim'], capacity=10000)

@@ -20,7 +20,7 @@ class TestMemoryFusion(unittest.TestCase):
 
     def test_adapter_fusion(self):
         dim = 32
-        af = AdapterFusion(dim, num_heads=2)
+        af = AdapterFusion(embed_dim=dim, slot_dim=dim, num_heads=2)
         
         lm_states = torch.randn(2, 10, dim)
         mem_slots = torch.randn(2, 5, dim)
@@ -43,7 +43,7 @@ class TestMemoryFusion(unittest.TestCase):
 
     def test_gradients(self):
         dim = 16
-        af = AdapterFusion(dim)
+        af = AdapterFusion(embed_dim=dim, slot_dim=dim)
         lm = torch.randn(2, 5, dim, requires_grad=True)
         mem = torch.randn(2, 3, dim, requires_grad=True)
         

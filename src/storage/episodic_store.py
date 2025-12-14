@@ -1,4 +1,3 @@
-
 import faiss
 import numpy as np
 import torch
@@ -9,18 +8,18 @@ import time
 from typing import Dict, List, Optional, Tuple, Any, Union
 
 class EpisodicStore(nn.Module):
+    """
+    Episodic Store (ES) - Short-term Memory.
+    Args:
+        key_dim: Dimension of retrieval keys.
+        slot_dim: Dimension of stored slot vectors.
+        capacity: Max number of items.
+        storage_path: Path to persistent log.
+        eviction_policy: 'fifo' or 'importance'.
+    """
     def __init__(self, key_dim: int, slot_dim: int, capacity: int = 10000, 
                  storage_path: str = "storage/episodic_log.jsonl",
                  eviction_policy: str = "fifo"):
-        """
-        Episodic Store (ES) - Short-term Memory.
-        Args:
-            key_dim: Dimension of retrieval keys.
-            slot_dim: Dimension of stored slot vectors.
-            capacity: Max number of items.
-            storage_path: Path to persistent log.
-            eviction_policy: 'fifo' or 'importance'.
-        """
         super().__init__()
         self.key_dim = key_dim
         self.slot_dim = slot_dim
@@ -47,27 +46,22 @@ class EpisodicStore(nn.Module):
             slot_vector = slot_vector.unsqueeze(0)
         batch_size = key.size(0)
 
-        # Eviction if full
         for _ in range(batch_size):
             if self.size >= self.capacity:
                 if self.eviction_policy == 'importance' and self.size > 0:
-                    # Find id with lowest ctr (default 0)
-                    min_ctr = None
+                    min_importance = None
                     min_idx = None
                     for i in range(self.size):
                         item_id = int(self.ids_buffer[i].item())
-                        ctr = self.meta_store.get(item_id, {}).get('ctr', 0)
-                        if min_ctr is None or ctr < min_ctr:
-                            min_ctr = ctr
+                        importance = self.meta_store.get(item_id, {}).get('importance', 0)
+                        if min_importance is None or importance < min_importance:
+                            min_importance = importance
                             min_idx = i
                     if min_idx is not None:
-                        # Remove from FAISS
                         remove_id = int(self.ids_buffer[min_idx].item())
                         self.index.remove_ids(np.array([remove_id], dtype=np.int64))
-                        # Remove from meta_store
                         if remove_id in self.meta_store:
                             del self.meta_store[remove_id]
-                        # Remove from buffers by shifting
                         if min_idx < self.size - 1:
                             self.keys_buffer[min_idx:self.size-1] = self.keys_buffer[min_idx+1:self.size].clone()
                             self.slots_buffer[min_idx:self.size-1] = self.slots_buffer[min_idx+1:self.size].clone()
@@ -75,10 +69,9 @@ class EpisodicStore(nn.Module):
                         self.size -= 1
                         self.pointer = self.size % self.capacity
                 else:
-                    # FIFO: just move pointer and size will be overwritten
                     pass
 
-        k_detach = key.detach()
+        k_detach = torch.nn.functional.normalize(key.detach(), p=2, dim=-1)
         s_detach = slot_vector.detach()
         indices = torch.arange(self.pointer, self.pointer + batch_size) % self.capacity
         self.keys_buffer[indices] = k_detach
@@ -96,13 +89,11 @@ class EpisodicStore(nn.Module):
             ids_np = ids_np.reshape(1)
         self.index.add_with_ids(k_np, ids_np)
 
-        # Store meta for each new id
         if meta is None:
             meta = {}
         for id_val in new_ids:
             self.meta_store[int(id_val.item())] = dict(meta)
 
-        # Return new ids as list or scalar
         if batch_size == 1:
             return int(new_ids[0].item())
         else:
@@ -110,7 +101,8 @@ class EpisodicStore(nn.Module):
 
     def retrieve(self, query: torch.Tensor, k: int = 5, router_confidence: float = 1.0) -> Dict[str, Any]:
         b = query.size(0)
-        q_np = query.detach().cpu().numpy().astype(np.float32)
+        q_normalized = torch.nn.functional.normalize(query.detach(), p=2, dim=-1)
+        q_np = q_normalized.cpu().numpy().astype(np.float32)
         if q_np.ndim == 1:
             q_np = np.expand_dims(q_np, axis=0)
         if self.index.ntotal == 0:
@@ -132,6 +124,7 @@ class EpisodicStore(nn.Module):
         retrieved_slots = []
         retrieved_scores = []
         retrieved_ids = []
+        retrieved_meta = []
         for i in range(b):
             if i >= ids_np.shape[0]:
                 break
@@ -140,31 +133,37 @@ class EpisodicStore(nn.Module):
             row_slots_list = []
             row_scores_list = []
             row_ids_list = []
+            row_meta_list = []
             for doc_id, score in zip(row_ids, row_scores):
                 if doc_id == -1:
                     row_slots_list.append(torch.zeros(self.slot_dim, device=self.slots_buffer.device))
                     row_scores_list.append(torch.tensor(0.0, device=self.slots_buffer.device))
                     row_ids_list.append(-1)
+                    row_meta_list.append({})
                     continue
                 matches = (self.ids_buffer == doc_id).nonzero(as_tuple=True)[0]
                 if len(matches) > 0:
                     idx = matches[0]
                     row_slots_list.append(self.slots_buffer[idx])
                     row_scores_list.append(torch.tensor(score, device=self.slots_buffer.device))
-                    row_ids_list.append(doc_id)
+                    row_ids_list.append(int(doc_id))
+                    row_meta_list.append(self.meta_store.get(int(doc_id), {}))
                 else:
                     row_slots_list.append(torch.zeros(self.slot_dim, device=self.slots_buffer.device))
                     row_scores_list.append(torch.tensor(0.0, device=self.slots_buffer.device))
                     row_ids_list.append(-1)
+                    row_meta_list.append({})
             retrieved_slots.append(torch.stack(row_slots_list))
             retrieved_scores.append(torch.stack(row_scores_list))
             retrieved_ids.append(row_ids_list)
+            retrieved_meta.append(row_meta_list)
             
         return {
             "retrieved_from": "episodic",
             "slots": torch.stack(retrieved_slots),
             "scores": torch.stack(retrieved_scores),
             "ids": retrieved_ids,
+            "meta": retrieved_meta,
             "timestamp": time.time_ns(),
             "router_confidence": router_confidence,
         }

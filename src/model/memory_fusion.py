@@ -28,19 +28,20 @@ class TokenFusion(nn.Module):
 
 
 class AdapterFusion(nn.Module):
-    def __init__(self, embed_dim: int, num_heads: int = 4, dropout: float = 0.1):
+    def __init__(self, embed_dim: int, slot_dim: int, num_heads: int = 4, dropout: float = 0.1):
         """
         Adapter Fusion - Fuses retrieved slot vectors into LM hidden states via Cross-Attn.
         
         Args:
-            embed_dim: Dimension of LM hidden states and memory slots.
+            embed_dim: Dimension of LM hidden states.
+            slot_dim: Dimension of memory slots.
             num_heads: Number of attention heads.
         """
         super().__init__()
         self.embed_dim = embed_dim
         
         # Cross Attention: Query = LM states, Key/Value = Memory Slots
-        self.cross_attn = nn.MultiheadAttention(embed_dim, num_heads, dropout=dropout, batch_first=True)
+        self.cross_attn = nn.MultiheadAttention(embed_dim, num_heads, dropout=dropout, batch_first=True, kdim=slot_dim, vdim=slot_dim)
         
         # Gating scalar alpha
         # Initialize to 0 so we start with identity (no memory influence)

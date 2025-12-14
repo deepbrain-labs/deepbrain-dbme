@@ -5,6 +5,7 @@ from torch.utils.data import DataLoader
 from typing import List, Dict, Any, Optional
 import os
 import time
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from src.model.language_model import LanguageModelWithAdapter
 from src.model.hippocampal_encoder import HippocampalEncoder
@@ -12,6 +13,7 @@ from src.model.router import Router
 from src.storage.episodic_store import EpisodicStore
 from src.storage.k_store import KStore
 from src.model.consolidator import Consolidator
+from src.evaluation.adversarial_eval import AdversarialEvaluator
 # from src.model.memory_fusion import AdapterFusion # If we decide to use it externally
 
 class DeepBrainTrainer:
@@ -89,13 +91,18 @@ class DeepBrainTrainer:
         Iterates through sessions sequentially.
         """
         step = 0
-        consolidation_interval = self.config.get('consolidation_interval', 100) # steps or sessions? Prompt says "M sessions or wall-time"
+        consolidation_frequency = self.config.get("model", {}).get("consolidation", {}).get("frequency", 10)
         checkpoint_interval = self.config.get('checkpoint_interval', 1000)
+        insertion_mode = self.config.get("model", {}).get("insertion_mode", "per-utterance")
         
         self.lm.train()
         self.he.train()
         self.router.train()
         
+        if self.config.get("evaluation", {}).get("adversarial_stale_facts"):
+            adversarial_evaluator = AdversarialEvaluator(self.lm, self.config.get("tokenizer"), self.es)
+            adversarial_evaluator.inject_stale_fact("the capital of France", "Berlin")
+
         print(f"Starting online training on {self.device}...")
         
         for epoch in range(num_epochs):
@@ -158,75 +165,67 @@ class DeepBrainTrainer:
                     logits_pre, ctx_emb = self.lm(utterance)
                     
                     # Step 2: Write to ES
-                    # HE Encode and Write to ES
-                    # The key is to use the `slot` tensor for loss calculation *before* detaching it for storage.
-                    key, slot, _ = self.he.write(ctx_emb) # (D_k), (D_slot)
-                    
+                    if insertion_mode == "per-utterance":
+                        # Process the last token's embedding as the utterance representation
+                        utterance_embedding = ctx_emb[:, -1, :]
+                        key, slot, _ = self.he.write(utterance_embedding)
+                        self.es.add(key.unsqueeze(0).detach(), slot.unsqueeze(0).detach())
+                    elif insertion_mode == "per-token":
+                        # Process each token's embedding
+                        for i in range(ctx_emb.shape[1]):
+                            token_embedding = ctx_emb[:, i, :]
+                            key, slot, _ = self.he.write(token_embedding)
+                            self.es.add(key.unsqueeze(0).detach(), slot.unsqueeze(0).detach())
+
                     # SAFER APPROACH: Use slot in a differentiable path, then save a detached copy.
                     # Add auxiliary reconstruction loss for HE
-                    recon_emb = self.he_decoder(slot)
-                    loss_he_recon = self.criterion_mse(recon_emb, ctx_emb.detach()) # Reconstruct original embedding
+                    # Note: This part needs to be adapted based on which embedding is used for reconstruction
+                    if insertion_mode == "per-utterance":
+                        recon_emb = self.he_decoder(slot)
+                        loss_he_recon = self.criterion_mse(recon_emb, utterance_embedding.detach())
+                    else: # per-token
+                        # In per-token, this loss would be calculated for each token, which can be complex.
+                        # For simplicity, we can calculate it on the last token's slot.
+                        last_token_embedding = ctx_emb[:, -1, :]
+                        _, last_slot, _ = self.he.write(last_token_embedding)
+                        recon_emb = self.he_decoder(last_slot)
+                        loss_he_recon = self.criterion_mse(recon_emb, last_token_embedding.detach())
+                    
+                    # Step 3: Retrieval & Fusion
+                    if insertion_mode == "per-utterance":
+                        query_embedding = ctx_emb[:, -1, :]
+                        key, _, _ = self.he.write(query_embedding)
+                        route_choice, route_probs = self.router.route(query_embedding)
+                        
+                        retrieval_k = self.config.get("model", {}).get("retrieval_k", 5)
+                        es_results = self.es.retrieve(key.unsqueeze(0), k=retrieval_k)
+                        k_results = self.kstore.retrieve(key.unsqueeze(0), k=retrieval_k)
+                        
+                        es_vals = es_results["slots"]
+                        k_vals = k_results["slots"]
 
-                    # Now, add a detached copy to the episodic store
-                    self.es.add(key.unsqueeze(0).detach(), slot.unsqueeze(0).detach())
+                        if route_choice.item() == 0:
+                            memory_context = es_vals
+                        else:
+                            memory_context = k_vals
                     
-                    # Step 3: Retrieval & Fusion (For Queries)
-                    # "For queries: use router to retrieve memory and fuse to LM"
-                    # Every utterance is a query? Or specific ones? Assume every utterance attempts retrieval to help prediction.
-                    # But we are predicting the *next* tokens usually. 
-                    # So we use the context of "utterance" to predict "utterance" (shifted) or next utterance?
-                    # Standard LM training: input=text, target=text (shifted).
-                    # We use the *prefix* context to retrieve?
-                    
-                    # Let's assume we use the current context embedding to retrieve relevant info 
-                    # to help predict the *continuation* or just to refine the representation.
-                    
-                    # Router
-                    # Decide ES or KStore (or both/mix)
-                    # "For queries: use router to retrieve memory..."
-                    # Check router output
-                    route_choice, route_probs = self.router.route(ctx_emb) # (B,) , (B, 2)
-                    
-                    # Retrieve
-                    # We need to retrieve from ES or KStore based on choice.
-                    # Or retrieve from both and weight?
-                    # "Fuse to LM".
-                    
-                    # Let's retrieve from *both* for implementation simplicity or strictly follow choice.
-                    # Router usually gates or selects.
-                    # Let's implement Soft Routing: weight = route_probs
-                    
-                    # Query = ctx_emb (or derived key?)
-                    # HE usually produces the Key. We can use `key` from above.
-                    
-                    # ES Retrieval
-                    es_vals, es_scores = self.es.retrieve(key.unsqueeze(0)) # (1, k, D_slot)
-                    
-                    # KStore Retrieval
-                    k_vals, k_scores = self.kstore.retrieve(key.unsqueeze(0)) # (1, k, D_slot)
-                    
-                    # Fuse
-                    # Weighted sum of retrieved memories?
-                    # fused_memory = p_ES * ES_mem + p_K * K_mem
-                    # Or maybe choose one set.
-                    # Simple weighted mix of the *values*.
-                    # Let's average the top-k retrieved slots weighted by router prob.
-                    
-                    p_es = route_probs[:, 0].view(-1, 1, 1)
-                    p_k = route_probs[:, 1].view(-1, 1, 1)
-                    
-                    # Ensure shapes match for simple weighted sum (assuming k is same)
-                    # If k differs, we might need more complex logic.
-                    # Let's assume k is same or we just cat?
-                    # "fuse to LM".
-                    # Let's concat everything? 
-                    # Or router picks ONE source.
-                    # "use router to retrieve memory" -> suggests selection.
-                    # Hard selection:
-                    if route_choice.item() == 0:
-                        memory_context = es_vals.mean(dim=1) # (B, D_slot) - Mean pooling top-k
-                    else:
-                        memory_context = k_vals.mean(dim=1)
+                    elif insertion_mode == "per-token":
+                        memory_contexts = []
+                        for i in range(ctx_emb.shape[1]):
+                            token_embedding = ctx_emb[:, i, :]
+                            key, _, _ = self.he.write(token_embedding)
+                            route_choice, _ = self.router.route(token_embedding)
+                            
+                            if route_choice.item() == 0:
+                                results = self.es.retrieve(key.unsqueeze(0))
+                                vals = results["slots"]
+                            else:
+                                results = self.kstore.retrieve(key.unsqueeze(0))
+                                vals = results["slots"]
+                            
+                            memory_contexts.append(vals.mean(dim=1))
+                        
+                        memory_context = torch.mean(torch.stack(memory_contexts), dim=0)
                         
                     # Step 4: Final LM Pass with Memory
                     # "fuse to LM, compute LM loss"
@@ -256,8 +255,10 @@ class DeepBrainTrainer:
                     # Then backprop works through p_es/p_k to router.
                     
                     # Let's Refine Memory Context for Router Training:
-                    es_agg = es_vals.mean(dim=1)
-                    k_agg = k_vals.mean(dim=1)
+                    es_agg = es_vals
+                    k_agg = k_vals
+                    p_es = route_probs[:, 0].view(-1, 1, 1)
+                    p_k = route_probs[:, 1].view(-1, 1, 1)
                     memory_context_soft = p_es * es_agg + p_k * k_agg
                     
                     # Re-run LM with soft memory for training? 
@@ -305,17 +306,21 @@ class DeepBrainTrainer:
                     session_loss += loss.item()
                     step += 1
                     
-                    # Periodic Consolidation
-                    if step % consolidation_interval == 0:
-                        print(f"Triggering consolidation at step {step}...")
+                # Periodic Consolidation
+                if self.config.get("model", {}).get("consolidation", {}).get("enabled", True):
+                    if (session_idx + 1) % consolidation_frequency == 0:
+                        print(f"Triggering consolidation after session {session_idx + 1}...")
                         self.consolidator.consolidate(self.es, self.kstore)
-                        # Consolidator might clear ES or merge it to KStore.
                         
                     # Checkpointing
                     if step % checkpoint_interval == 0:
                         self.save_checkpoint(step)
                         
                 print(f"Session {session_idx} complete. Avg Loss: {session_loss / len(utterances):.4f}")
+
+        if self.config.get("evaluation", {}).get("adversarial_stale_facts"):
+            result = adversarial_evaluator.evaluate_hallucination("the capital of France", "Paris")
+            print(f"Adversarial evaluation result: {result}")
 
     def save_checkpoint(self, step):
         path = f"checkpoint_{step}.pt"
@@ -334,14 +339,51 @@ class DeepBrainTrainer:
 if __name__ == "__main__":
     # Dummy Test Run if executed directly
     print("Initializing components for dummy test...")
-    config = {'lm_adapter_lr': 1e-4, 'he_lr': 3e-4}
+    config = {
+        'lm_adapter_lr': 1e-4, 
+        'he_lr': 3e-4,
+        "model": {
+            "name": "gpt2",
+            "consolidation": {
+                "mode": "prototype"
+            },
+            "router": {
+                "mode": "learned"
+            },
+            "hippocampal_encoder": {
+                "slot_dim": 256
+            },
+            "language_model": {
+                "fusion_mode": "adapter"
+            },
+            "retrieval_k": 5
+        },
+        "storage": {
+            "episodic_store": {
+                "eviction_policy": "fifo"
+            }
+        }
+    }
     
-    lm = LanguageModelWithAdapter(input_dim=768, hidden_dim=768, vocab_size=1000)
-    he = HippocampalEncoder(input_dim=768)
-    router = Router(input_dim=768)
-    es = EpisodicStore(slot_dim=256, key_dim=128) # Ensure dims match HE defaults
-    kstore = KStore(key_dim=128, value_dim=256)
-    consolidator = Consolidator()
+    base_model = AutoModelForCausalLM.from_pretrained(config['model']['name'])
+    fusion_mode = config.get("model", {}).get("language_model", {}).get("fusion_mode", "adapter")
+    slot_dim = config.get("model", {}).get("hippocampal_encoder", {}).get("slot_dim", 256)
+    lm = LanguageModelWithAdapter(base_model, input_dim=768, hidden_dim=768, fusion_mode=fusion_mode, slot_dim=slot_dim)
+    
+    he = HippocampalEncoder(input_dim=768, slot_dim=slot_dim)
+    
+    router_mode = config.get("model", {}).get("router", {}).get("mode", "learned")
+    router = Router(input_dim=768, mode=router_mode)
+    
+    episodic_store_config = config.get("storage", {}).get("episodic_store", {})
+    eviction_policy = episodic_store_config.get("eviction_policy", "fifo")
+    capacity = episodic_store_config.get("capacity", 10000)
+    es = EpisodicStore(slot_dim=slot_dim, key_dim=128, eviction_policy=eviction_policy, capacity=capacity)
+    
+    kstore = KStore(key_dim=128, value_dim=slot_dim)
+    
+    consolidator_mode = config.get("model", {}).get("consolidation", {}).get("mode", "prototype")
+    consolidator = Consolidator(mode=consolidator_mode)
     
     trainer = DeepBrainTrainer(lm, he, router, es, kstore, consolidator, config)
     

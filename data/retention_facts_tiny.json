@@ -4,6 +4,20 @@
         "fact": "The sky is blue.",
         "query": "What color is the sky?",
         "injected_at_step": 0,
-        "query_at_steps": [0, 10]
+        "query_at_steps": [0, 10, 20]
+    },
+    {
+        "fact_id": "F002",
+        "fact": "The sun is hot.",
+        "query": "Is the sun hot?",
+        "injected_at_step": 0,
+        "query_at_steps": [0, 5]
+    },
+    {
+        "fact_id": "F003",
+        "fact": "Water is wet.",
+        "query": "Is water wet?",
+        "injected_at_step": 10,
+        "query_at_steps": [10, 20]
     }
 ]

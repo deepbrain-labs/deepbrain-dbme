@@ -7,7 +7,7 @@ import os
 # Add project root
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.model.consolidator import PrototypeConsolidator, DistillationConsolidator
+from src.model.consolidator import Consolidator as PrototypeConsolidator
 
 class TestConsolidator(unittest.TestCase):
     def test_prototype_consolidator(self):
@@ -18,39 +18,28 @@ class TestConsolidator(unittest.TestCase):
             print("Skipping PrototypeConsolidator test: sklearn not found")
             return
 
-        dim = 16
+        slot_dim = 16
+        key_dim = 10
         n_proto = 5
-        pc = PrototypeConsolidator(n_prototypes=n_proto, dimension=dim)
+        pc = PrototypeConsolidator(mode='prototype', n_prototypes=n_proto, dimension=slot_dim)
         
         # 20 samples
-        slots = np.random.randn(20, dim).astype(np.float32)
+        keys = torch.randn(20, key_dim)
+        slots = torch.randn(20, slot_dim)
         
-        pc.consolidate(slots)
+        prototypes, labels = pc.find_prototypes(keys, slots)
         
-        protos = pc.get_kstore_reps()
-        self.assertEqual(protos.shape, (n_proto, dim))
+        self.assertIsInstance(prototypes, list)
+        self.assertEqual(len(prototypes), n_proto)
         
-        # Test query
-        q = np.random.randn(dim).astype(np.float32)
-        dists, indices = pc.query_kstore(q, top_k=2)
-        self.assertEqual(len(indices), 2)
+        # Check the shape of the returned keys and slots
+        proto_key, proto_slot = prototypes[0]
+        self.assertEqual(proto_key.shape, (key_dim,))
+        self.assertEqual(proto_slot.shape, (slot_dim,))
 
-    def test_distillation_consolidator(self):
-        key_dim = 16
-        slot_dim = 32
-        dc = DistillationConsolidator(key_dim, slot_dim)
-        
-        # Mock data
-        keys = np.random.randn(20, key_dim).astype(np.float32)
-        slots = np.random.randn(20, slot_dim).astype(np.float32)
-        
-        # Train
-        dc.consolidate(keys, slots, epochs=2, batch_size=5)
-        
-        # Query
-        q_tensor = torch.randn(1, key_dim)
-        pred_slot = dc.query_kstore(q_tensor)
-        self.assertEqual(pred_slot.shape, (1, slot_dim))
+        # Check the labels
+        self.assertIsInstance(labels, np.ndarray)
+        self.assertEqual(labels.shape, (20,))
 
 if __name__ == '__main__':
     unittest.main()

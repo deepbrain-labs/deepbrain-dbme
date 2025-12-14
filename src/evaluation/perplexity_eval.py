@@ -26,7 +26,8 @@ class PerplexityEvaluator:
         lm = LanguageModelWithAdapter(
             base_model,
             input_dim=model_config['input_dim'], 
-            hidden_dim=model_config['hidden_dim']
+            hidden_dim=model_config['hidden_dim'],
+            slot_dim=model_config['slot_dim']
         ).to(self.device)
         
         if use_dbme:

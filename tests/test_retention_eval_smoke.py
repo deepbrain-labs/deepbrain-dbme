@@ -47,6 +47,9 @@ evaluation:
             def __init__(self):
                 self.config = "smoke_test_config.yaml"
                 self.data_path = "data/retention_facts_tiny.json"
+                self.output_dir = "evaluation_results"
+                self.model_types = ['dbme']
+                self.num_seeds = 1
         
         main(DummyArgs())
     finally:
