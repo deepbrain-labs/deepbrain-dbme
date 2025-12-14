@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from typing import List, Dict, Any, Optional
@@ -118,6 +119,8 @@ class DeepBrainTrainer:
         self.he.train()
         self.router.train()
         
+        prev_slot = None
+
         if self.config.get("evaluation", {}).get("adversarial_stale_facts"):
             adversarial_evaluator = AdversarialEvaluator(self.lm, self.config.get("tokenizer"), self.es)
             adversarial_evaluator.inject_stale_fact("the capital of France", "Berlin")
@@ -189,14 +192,14 @@ class DeepBrainTrainer:
                         utterance_embedding = ctx_emb[:, -1, :]
                         key, slot, _ = self.he.write(utterance_embedding)
                         # Temporarily remove .detach() for debugging gradient flow
-                        self.es.add(key.unsqueeze(0), slot.unsqueeze(0))
+                        self.es.add(key, slot)
                     elif insertion_mode == "per-token":
                         # Process each token's embedding
                         for i in range(ctx_emb.shape[1]):
                             token_embedding = ctx_emb[:, i, :]
                             key, slot, _ = self.he.write(token_embedding)
                             # Temporarily remove .detach() for debugging gradient flow
-                            self.es.add(key.unsqueeze(0), slot.unsqueeze(0))
+                            self.es.add(key, slot)
 
                     # SAFER APPROACH: Use slot in a differentiable path, then save a detached copy.
                     # Add auxiliary reconstruction loss for HE
@@ -205,9 +208,9 @@ class DeepBrainTrainer:
                         recon_emb = self.he_decoder(slot)
                         
                         # [DEBUG] Add shape assertions and debug prints
-                        pred = recon_emb.unsqueeze(0)
+                        pred = recon_emb
                         target = utterance_embedding.detach()
-                        print(f"[DEBUG] HE Recon Loss (per-utterance): pred.shape={tuple(pred.shape)}, target.shape={tuple(target.shape)}")
+                        # print(f"[DEBUG] HE Recon Loss (per-utterance): pred.shape={tuple(pred.shape)}, target.shape={tuple(target.shape)}")
                         assert pred.shape == target.shape, \
                             f"Shape mismatch: pred {pred.shape} vs target {target.shape} - fix broadcasting"
                         
@@ -220,9 +223,9 @@ class DeepBrainTrainer:
                         recon_emb = self.he_decoder(last_slot)
 
                         # [DEBUG] Add shape assertions and debug prints
-                        pred = recon_emb.unsqueeze(0)
+                        pred = recon_emb
                         target = last_token_embedding.detach()
-                        print(f"[DEBUG] HE Recon Loss (per-token): pred.shape={tuple(pred.shape)}, target.shape={tuple(target.shape)}")
+                        # print(f"[DEBUG] HE Recon Loss (per-token): pred.shape={tuple(pred.shape)}, target.shape={tuple(target.shape)}")
                         assert pred.shape == target.shape, \
                             f"Shape mismatch: pred {pred.shape} vs target {target.shape} - fix broadcasting"
 
@@ -235,8 +238,8 @@ class DeepBrainTrainer:
                         route_choice, route_probs = self.router.route(query_embedding)
                         
                         retrieval_k = self.config.get("model", {}).get("retrieval_k", 5)
-                        es_results = self.es.retrieve(key.unsqueeze(0), k=retrieval_k)
-                        k_results = self.kstore.retrieve(key.unsqueeze(0), k=retrieval_k)
+                        es_results = self.es.retrieve(key, k=retrieval_k)
+                        k_results = self.kstore.retrieve(key, k=retrieval_k)
                         
                         es_vals = es_results["slots"]
                         k_vals = k_results["slots"]
@@ -254,10 +257,10 @@ class DeepBrainTrainer:
                             route_choice, _ = self.router.route(token_embedding)
                             
                             if route_choice.item() == 0:
-                                results = self.es.retrieve(key.unsqueeze(0))
+                                results = self.es.retrieve(key)
                                 vals = results["slots"]
                             else:
-                                results = self.kstore.retrieve(key.unsqueeze(0))
+                                results = self.kstore.retrieve(key)
                                 vals = results["slots"]
                             
                             memory_contexts.append(vals.mean(dim=1))
@@ -336,11 +339,12 @@ class DeepBrainTrainer:
                     
                     # MSE Loss
                     # This ensures HE receives gradients.
-                    pred = slot.unsqueeze(0)
+                    pred = slot
                     target = k_target
-                    print(f"[DEBUG] Distillation Loss: pred.shape={tuple(pred.shape)}, target.shape={tuple(target.shape)}")
-                    assert pred.shape == target.shape, \
-                        f"Shape mismatch: pred {pred.shape} vs target {target.shape} - fix broadcasting"
+                    
+                    # [BLOCK 1] Add assertions to confirm the shape mismatch.
+                    assert pred.dim() == target.dim(), f"Dim mismatch: {pred.shape} vs {target.shape}"
+                    assert pred.shape == target.shape, f"Shape mismatch: {pred.shape} vs {target.shape}"
                     
                     loss_distill = self.criterion_mse(pred, target)
                     
@@ -357,6 +361,14 @@ class DeepBrainTrainer:
                     
                     loss = loss_lm + loss_distill + loss_he_recon + (lambda_he * loss_he_direct) + (lambda_router * loss_router)
                     
+                    # HE Overfit Test Logging
+                    if u_idx > 0 and prev_slot is not None:
+                        slot_norm = torch.linalg.norm(slot.detach()).item()
+                        cosine_sim = F.cosine_similarity(prev_slot.detach(), slot.detach()).item()
+                        print(f"Step {u_idx} | HE Recon Loss: {loss_he_recon.item():.4f} | Slot Norm: {slot_norm:.4f} | Cosine Sim: {cosine_sim:.4f}")
+
+                    prev_slot = slot
+
                     # Backprop
                     self.optimizer_lm.zero_grad()
                     self.optimizer_he.zero_grad()
@@ -376,16 +388,30 @@ class DeepBrainTrainer:
                     step += 1
                     
                 # Periodic Consolidation
-                if self.config.get("model", {}).get("consolidation", {}).get("enabled", True):
+                if self.config.get('enable_consolidation', False):
                     if (session_idx + 1) % consolidation_frequency == 0:
                         print(f"Triggering consolidation after session {session_idx + 1}...")
                         self.consolidator.consolidate(self.es, self.kstore)
                         
-                    # Checkpointing
-                    if step % checkpoint_interval == 0:
-                        self.save_checkpoint(step)
-                        
-                print(f"Session {session_idx} complete. Avg Loss: {session_loss / len(utterances):.4f}")
+                # Checkpointing
+                if step % checkpoint_interval == 0:
+                    self.save_checkpoint(step)
+                
+                # Normalize and print losses
+                avg_loss = session_loss / len(utterances)
+                avg_lm_loss = loss_lm.item() / utterance.shape[1] # Per-token
+                avg_he_recon_loss = loss_he_recon.item() / self.he.slot_dim # Per-slot
+                avg_he_direct_loss = loss_he_direct.item() / self.he.slot_dim # Per-slot
+                avg_router_loss = loss_router.item()
+                avg_distill_loss = loss_distill.item()
+                
+                print(f"\nSession {session_idx} complete.")
+                print(f"  Avg Total Loss: {avg_loss:.4f}")
+                print(f"  Avg LM Loss (per token): {avg_lm_loss:.4f}")
+                print(f"  Avg HE Recon Loss (per slot): {avg_he_recon_loss:.4f}")
+                print(f"  Avg HE Direct Loss (per slot): {avg_he_direct_loss:.4f}")
+                print(f"  Avg Router Loss: {avg_router_loss:.4f}")
+                print(f"  Avg Distill Loss: {avg_distill_loss:.4f}")
 
         if self.config.get("evaluation", {}).get("adversarial_stale_facts"):
             result = adversarial_evaluator.evaluate_hallucination("the capital of France", "Paris")
@@ -405,10 +431,61 @@ class DeepBrainTrainer:
         }
         torch.save(state, path)
 
+def evaluate_retrieval(trainer, num_facts=100, num_queries=100):
+    print("--- Starting ES-only Retrieval Validation ---")
+    trainer.lm.eval()
+    trainer.he.eval()
+    trainer.es.clear()
+    
+    fact_embeddings = []
+    fact_slots = []
+    
+    with torch.no_grad():
+        # Insert facts
+        for i in range(num_facts):
+            fact = torch.randint(0, 1000, (10,))
+            logits_pre, ctx_emb = trainer.lm(fact.unsqueeze(0).to(trainer.device))
+            utterance_embedding = ctx_emb[:, -1, :]
+            key, slot, _ = trainer.he.write(utterance_embedding)
+            trainer.es.add(key, slot)
+            fact_embeddings.append(utterance_embedding)
+            fact_slots.append(slot)
+
+        # Evaluate retrieval
+        recall_at_1 = 0
+        recall_at_10 = 0
+        for i in range(num_queries):
+            query_embedding = fact_embeddings[i]
+            key, _, _ = trainer.he.write(query_embedding)
+            results = trainer.es.retrieve(key, k=10)
+            
+            retrieved_slots = results["slots"].squeeze(0)
+            original_slot = fact_slots[i].squeeze(0)
+            
+            # Check if the original slot is in the top 1
+            if torch.allclose(retrieved_slots[0], original_slot, atol=1e-6):
+                recall_at_1 += 1
+            
+            # Check if the original slot is in the top 10
+            for retrieved_slot in retrieved_slots:
+                if torch.allclose(retrieved_slot, original_slot, atol=1e-6):
+                    recall_at_10 += 1
+                    break
+
+    recall_at_1 /= num_queries
+    recall_at_10 /= num_queries
+
+    print(f"Recall@1: {recall_at_1:.4f}")
+    print(f"Recall@10: {recall_at_10:.4f}")
+    print("--- ES-only Retrieval Validation Complete ---")
+
+    return recall_at_1, recall_at_10
+
 if __name__ == "__main__":
     # Dummy Test Run if executed directly
     print("Initializing components for dummy test...")
     config = {
+        'enable_consolidation': False,
         'lm_adapter_lr': 1e-4, 
         'he_lr': 3e-4,
         "model": {
@@ -456,8 +533,13 @@ if __name__ == "__main__":
     
     trainer = DeepBrainTrainer(lm, he, router, es, kstore, consolidator, config)
     
-    # Dummy data: List of tensors
-    dummy_session = [torch.randint(0, 1000, (10,))] # 1 utterance of len 10
-    loader = [dummy_session]
-    
+    # --- BLOCK 3: HE Overfit Test ---
+    print("--- Running HE Overfit Test ---")
+    utterance = torch.randint(0, 1000, (10,))
+    overfit_session = [utterance for _ in range(50)]
+    loader = [overfit_session]
     trainer.train_online(loader, num_epochs=1)
+    
+    # --- BLOCK 4: ES-only Retrieval Validation ---
+    print("\n--- Running ES-only Retrieval Validation ---")
+    evaluate_retrieval(trainer, num_facts=100, num_queries=100)

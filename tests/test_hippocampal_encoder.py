@@ -27,8 +27,8 @@ class TestHippocampalEncoder(unittest.TestCase):
         # write expects (input_dim) or (1, input_dim)
         x_single = torch.randn(input_dim)
         k, s, m = he.write(x_single, meta={'id': 1})
-        self.assertEqual(k.shape, (key_dim,))
-        self.assertEqual(s.shape, (slot_dim,))
+        self.assertEqual(k.shape, (1, key_dim))
+        self.assertEqual(s.shape, (1, slot_dim))
         self.assertEqual(m['id'], 1)
 
     def test_vae_mode(self):

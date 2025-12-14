@@ -5,6 +5,8 @@ import shutil
 import tempfile
 import sys
 import torch
+
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.storage.episodic_store import EpisodicStore

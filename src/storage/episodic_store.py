@@ -100,11 +100,11 @@ class EpisodicStore(nn.Module):
             return [int(i.item()) for i in new_ids]
 
     def retrieve(self, query: torch.Tensor, k: int = 5, router_confidence: float = 1.0) -> Dict[str, Any]:
+        if query.dim() == 1:
+            query = query.unsqueeze(0)
         b = query.size(0)
         q_normalized = torch.nn.functional.normalize(query.detach(), p=2, dim=-1)
         q_np = q_normalized.cpu().numpy().astype(np.float32)
-        if q_np.ndim == 1:
-            q_np = np.expand_dims(q_np, axis=0)
         if self.index.ntotal == 0:
             return {
                 "retrieved_from": "episodic",

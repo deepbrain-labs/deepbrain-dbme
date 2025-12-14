@@ -96,7 +96,7 @@ class HippocampalEncoder(nn.Module):
 
         key, slot, _ = self.forward(x)
         
-        return key.squeeze(0), slot.squeeze(0), meta
+        return key, slot, meta
 
     def batch_write(self, list_of_contexts: Union[List[torch.Tensor], torch.Tensor]) -> List[Tuple[torch.Tensor, torch.Tensor]]:
         """

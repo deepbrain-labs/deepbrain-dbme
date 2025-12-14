@@ -32,6 +32,8 @@ class KStore(nn.Module):
         self.size = min(self.capacity, self.size + batch_size)
 
     def retrieve(self, query: torch.Tensor, k: int = 5, router_confidence: float = 1.0) -> Dict[str, any]:
+        if query.dim() == 1:
+            query = query.unsqueeze(0)
         if self.size == 0:
             return {
                 "retrieved_from": "kstore",
