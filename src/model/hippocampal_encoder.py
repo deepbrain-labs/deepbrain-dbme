@@ -80,6 +80,18 @@ class HippocampalEncoder(nn.Module):
             meta: Metadata dict pass-through.
             
         Returns:
+            A tuple containing:
+            - key: (B, key_dim)
+            - slot: (B, slot_dim)
+            - meta: The passed-in metadata
+        """
+        # Ensure batch dim
+        if context_embedding.dim() == 1:
+            x = context_embedding.unsqueeze(0)
+        else:
+            x = context_embedding
+
+        key, slot, _ = self.forward(x)
         return key, slot, meta
 
     def batch_write(self, list_of_contexts: Union[List[torch.Tensor], torch.Tensor]) -> List[Tuple[torch.Tensor, torch.Tensor]]:
