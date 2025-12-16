@@ -25,9 +25,9 @@ def test_memory_correctness():
     base_model = AutoModelForCausalLM.from_pretrained(config['model']['name'])
 
     model_config = config['model']
-    lm = LanguageModelWithAdapter(base_model, input_dim=model_config['input_dim'], hidden_dim=model_config['hidden_dim'], slot_dim=model_config['slot_dim'])
-    he = HippocampalEncoder(input_dim=model_config['input_dim'], slot_dim=model_config['slot_dim'], key_dim=model_config['key_dim'])
-    es = EpisodicStore(slot_dim=model_config['slot_dim'], key_dim=model_config['key_dim'], capacity=100)
+    lm = LanguageModelWithAdapter(base_model, input_dim=model_config['language_model']['input_dim'], hidden_dim=model_config['language_model']['hidden_dim'], slot_dim=model_config['hippocampal_encoder']['slot_dim'])
+    he = HippocampalEncoder(input_dim=model_config['hippocampal_encoder']['input_dim'], slot_dim=model_config['hippocampal_encoder']['slot_dim'], key_dim=model_config['hippocampal_encoder']['key_dim'])
+    es = EpisodicStore(slot_dim=model_config['hippocampal_encoder']['slot_dim'], key_dim=model_config['hippocampal_encoder']['key_dim'], capacity=100)
 
     facts = [f"Fact number {i}" for i in range(10)]
     fact_embeddings = []

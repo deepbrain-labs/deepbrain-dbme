@@ -45,22 +45,19 @@ class HippocampalEncoder(nn.Module):
         eps = torch.randn_like(std)
         return mu + eps * std
 
-    def forward(self, x: torch.Tensor) -> Dict[str, Any]:
+    def forward(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, Dict[str, Any]]:
         """
         Forward pass.
         
         Returns:
-            A dictionary containing:
-            - "key": (B, key_dim)
-            - "slot": (B, slot_dim)
-            - "vae_info": Dict with VAE auxiliary data (if vae_mode=True)
+            A tuple containing:
+            - key: (B, key_dim)
+            - slot: (B, slot_dim)
+            - vae_info: Dict with VAE auxiliary data (if vae_mode=True)
         """
         hidden = self.trunk(x)
         key = self.key_head(hidden)
-        
-        output = {"key": key}
         vae_info = {}
-        
         if self.vae_mode:
             mu = self.slot_mu(hidden)
             logvar = self.slot_logvar(hidden)
@@ -68,18 +65,13 @@ class HippocampalEncoder(nn.Module):
                 slot = self.reparameterize(mu, logvar)
             else:
                 slot = mu
-            
             vae_info['mu'] = mu
             vae_info['logvar'] = logvar
         else:
             slot = self.slot_head(hidden)
-            
-        output["slot"] = slot
-        output["vae_info"] = vae_info
-        
-        return output
+        return key, slot, vae_info
 
-    def write(self, context_embedding: torch.Tensor, meta: Optional[Dict] = None) -> Dict[str, Any]:
+    def write(self, context_embedding: torch.Tensor, meta: Optional[Dict] = None) -> Tuple[torch.Tensor, torch.Tensor, Optional[Dict]]:
         """
         Single item write.
         
@@ -88,10 +80,10 @@ class HippocampalEncoder(nn.Module):
             meta: Metadata dict pass-through.
             
         Returns:
-            A dictionary containing:
-            - "key": (B, key_dim)
-            - "slot": (B, slot_dim)
-            - "meta": The passed-in metadata
+            A tuple containing:
+            - key: (B, key_dim)
+            - slot: (B, slot_dim)
+            - meta: The passed-in metadata
         """
         # Ensure batch dim
         if context_embedding.dim() == 1:
@@ -99,13 +91,8 @@ class HippocampalEncoder(nn.Module):
         else:
             x = context_embedding
 
-        forward_output = self.forward(x)
-        
-        return {
-            "key": forward_output["key"],
-            "slot": forward_output["slot"],
-            "meta": meta
-        }
+        key, slot, _ = self.forward(x)
+        return key, slot, meta
 
     def batch_write(self, list_of_contexts: Union[List[torch.Tensor], torch.Tensor]) -> List[Tuple[torch.Tensor, torch.Tensor]]:
         """
