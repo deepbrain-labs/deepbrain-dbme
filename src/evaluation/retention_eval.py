@@ -1,5 +1,10 @@
 import argparse
+import sys
+import os
 import torch
+
+# Add project root to sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 import numpy as np
 import yaml
 from pathlib import Path
@@ -190,20 +195,20 @@ def main(args):
             rng = np.random.default_rng(seed)
             retention_data = list(rng.choice(all_retention_data, size=len(all_retention_data), replace=False))
 
-            lm = LanguageModelWithAdapter(base_model, input_dim=model_config['input_dim'], hidden_dim=model_config['hidden_dim'], slot_dim=model_config['slot_dim'])
-            he = HippocampalEncoder(input_dim=model_config['input_dim'], slot_dim=model_config['slot_dim'], key_dim=model_config['key_dim'])
+            lm = LanguageModelWithAdapter(base_model, input_dim=model_config['language_model']['input_dim'], hidden_dim=model_config['language_model']['hidden_dim'], slot_dim=model_config['hippocampal_encoder']['slot_dim'])
+            he = HippocampalEncoder(input_dim=model_config['hippocampal_encoder']['input_dim'], slot_dim=model_config['hippocampal_encoder']['slot_dim'], key_dim=model_config['hippocampal_encoder']['key_dim'])
             
-            es_capacity = config.get('memory', {}).get('es_capacity', 1000)
+            es_capacity = config.get('storage', {}).get('episodic_store', {}).get('capacity', 1000)
             
             model_components = {'lm': lm, 'he': he}
             if model_type == 'dbme':
-                model_components['router'] = Router(input_dim=model_config['input_dim'])
-                model_components['es'] = EpisodicStore(slot_dim=model_config['slot_dim'], key_dim=model_config['key_dim'], capacity=es_capacity)
-                model_components['kstore'] = KStore(key_dim=model_config['key_dim'], value_dim=model_config['slot_dim'])
+                model_components['router'] = Router(input_dim=model_config['router']['input_dim'])
+                model_components['es'] = EpisodicStore(slot_dim=model_config['hippocampal_encoder']['slot_dim'], key_dim=model_config['hippocampal_encoder']['key_dim'], capacity=es_capacity)
+                model_components['kstore'] = KStore(key_dim=model_config['hippocampal_encoder']['key_dim'], value_dim=model_config['hippocampal_encoder']['slot_dim'])
             elif model_type == 'es_only':
-                model_components['es'] = EpisodicStore(slot_dim=model_config['slot_dim'], key_dim=model_config['key_dim'], capacity=es_capacity)
+                model_components['es'] = EpisodicStore(slot_dim=model_config['hippocampal_encoder']['slot_dim'], key_dim=model_config['hippocampal_encoder']['key_dim'], capacity=es_capacity)
             elif model_type == 'kv_cache':
-                model_components['kv_cache'] = KVCache(capacity=es_capacity, key_dim=model_config['input_dim'], slot_dim=model_config['input_dim'])
+                model_components['kv_cache'] = KVCache(capacity=es_capacity, key_dim=model_config['language_model']['input_dim'], slot_dim=model_config['language_model']['input_dim'])
 
             evaluator = RetentionEvaluator(config, model_components, tokenizer, model_type=model_type)
 

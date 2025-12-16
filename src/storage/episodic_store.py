@@ -232,3 +232,14 @@ class EpisodicStore(nn.Module):
     @property
     def values(self):
         return self.slots_buffer[:self.size]
+
+    def export_all_data(self) -> Dict[str, List]:
+        """Exports all keys, slots, and metadata from the store."""
+        if self.size == 0:
+            return {"keys": [], "slots": [], "meta": []}
+        
+        all_keys = [self.keys_buffer[i].clone() for i in range(self.size)]
+        all_slots = [self.slots_buffer[i].clone() for i in range(self.size)]
+        all_meta = [self.meta_store.get(int(self.ids_buffer[i].item()), {}) for i in range(self.size)]
+        
+        return {"keys": all_keys, "slots": all_slots, "meta": all_meta}

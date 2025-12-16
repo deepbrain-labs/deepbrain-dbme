@@ -1,6 +1,6 @@
-trial_id: "real_data_run_001"
+trial_id: "pressure_test_dbme_001"
 seed: 42
-output_dir: "demos/models"
+output_dir: "demos/models/pressure_test"
 
 model:
   name: "gpt2"
@@ -21,7 +21,7 @@ model:
 
 storage:
   episodic_store:
-    capacity: 10000
+    capacity: 64 # Aggressively capped ES
     eviction_policy: "fifo"
   k_store: {}
 

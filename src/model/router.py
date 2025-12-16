@@ -30,15 +30,25 @@ class Router(nn.Module):
 
     def route(self, features: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         """
-        Decide route.
+        Decide route based on the configured mode.
         
         Returns:
             choices: (B,) tensor of 0 (ES) or 1 (KStore).
             probs: (B, 2) softmax probabilities.
         """
-        logits = self.forward(features)
-        probs = F.softmax(logits, dim=-1)
-        choices = torch.argmax(probs, dim=-1)
+        if self.mode == 'learned':
+            logits = self.forward(features)
+            probs = F.softmax(logits, dim=-1)
+            choices = torch.argmax(probs, dim=-1)
+        elif self.mode == 'always_es':
+            choices = torch.zeros(features.shape[0], dtype=torch.long, device=features.device)
+            probs = torch.tensor([[1.0, 0.0]] * features.shape[0], device=features.device)
+        elif self.mode == 'always_kstore':
+            choices = torch.ones(features.shape[0], dtype=torch.long, device=features.device)
+            probs = torch.tensor([[0.0, 1.0]] * features.shape[0], device=features.device)
+        else:
+            raise ValueError(f"Unknown router mode: {self.mode}")
+            
         return choices, probs
 
     def get_choice_name(self, choice_idx: int) -> str:

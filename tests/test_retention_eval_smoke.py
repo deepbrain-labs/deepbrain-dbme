@@ -1,6 +1,5 @@
 import os
 import sys
-import pytest
 
 # Add project root to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -19,12 +18,18 @@ config_name: "base_gpt2"
 
 model:
   name: "gpt2"
-  max_length: 512
-  input_dim: 768
-  hidden_dim: 768
-  slot_dim: 256
-  key_dim: 128
-  vocab_size: 50257
+  language_model:
+    input_dim: 768
+    hidden_dim: 768
+    vocab_size: 50257
+    max_length: 512
+    key_dim: 128
+  hippocampal_encoder:
+    input_dim: 768
+    slot_dim: 256
+    key_dim: 128
+  router:
+    input_dim: 768
 
 training:
   batch_size: 1
@@ -33,16 +38,15 @@ training:
   device: "cpu"
 
 evaluation:
-    num_seeds: 1
-    intervals: [0, 10]
-    chunk_size: 16
+  num_seeds: 1
+  intervals: [0, 10]
+  chunk_size: 16
 """
     with open("smoke_test_config.yaml", "w") as f:
         f.write(dummy_config)
-        
+
     # Run the script with the dummy config and tiny dataset
     try:
-        # Create a dummy args object
         class DummyArgs:
             def __init__(self):
                 self.config = "smoke_test_config.yaml"
@@ -50,7 +54,7 @@ evaluation:
                 self.output_dir = "evaluation_results"
                 self.model_types = ['dbme']
                 self.num_seeds = 1
-        
+
         main(DummyArgs())
     finally:
         # Clean up the dummy config file
@@ -58,4 +62,5 @@ evaluation:
             os.remove("smoke_test_config.yaml")
 
 if __name__ == "__main__":
+    test_retention_eval_smoke()
     test_retention_eval_smoke()

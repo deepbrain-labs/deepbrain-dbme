@@ -1,6 +1,6 @@
-trial_id: "real_data_run_001"
+trial_id: "forgetting_test_001"
 seed: 42
-output_dir: "demos/models"
+output_dir: "demos/models/forgetting_test"
 
 model:
   name: "gpt2"
@@ -17,11 +17,11 @@ model:
     mode: "learned"
   consolidation:
     mode: "prototype"
-    frequency: 10 # Consolidate every 10 sessions
+    frequency: 10
 
 storage:
   episodic_store:
-    capacity: 10000
+    capacity: 64
     eviction_policy: "fifo"
   k_store: {}
 

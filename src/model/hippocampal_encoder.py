@@ -50,32 +50,26 @@ class HippocampalEncoder(nn.Module):
         Forward pass.
         
         Returns:
-            key: (B, key_dim)
-            slot: (B, slot_dim)
-            info: Dict with extra info (e.g. VAE aux valid only if vae_mode=True)
+            A tuple containing:
+            - key: (B, key_dim)
+            - slot: (B, slot_dim)
+            - vae_info: Dict with VAE auxiliary data (if vae_mode=True)
         """
         hidden = self.trunk(x)
         key = self.key_head(hidden)
-        
-        info = {}
+        vae_info = {}
         if self.vae_mode:
             mu = self.slot_mu(hidden)
             logvar = self.slot_logvar(hidden)
             if self.training:
                 slot = self.reparameterize(mu, logvar)
             else:
-                # In inference, usually use mu, but for 'robustness' via stochasticity
-                # we technically could sample. For now default to mu.
                 slot = mu
-            
-            info['mu'] = mu
-            info['logvar'] = logvar
-            # Simple KL calculation can be done here or outside
-            # KL = -0.5 * sum(1 + logvar - mu^2 - exp(logvar))
+            vae_info['mu'] = mu
+            vae_info['logvar'] = logvar
         else:
             slot = self.slot_head(hidden)
-            
-        return key, slot, info
+        return key, slot, vae_info
 
     def write(self, context_embedding: torch.Tensor, meta: Optional[Dict] = None) -> Tuple[torch.Tensor, torch.Tensor, Optional[Dict]]:
         """
@@ -86,7 +80,10 @@ class HippocampalEncoder(nn.Module):
             meta: Metadata dict pass-through.
             
         Returns:
-            (key, slot_vector, meta)
+            A tuple containing:
+            - key: (B, key_dim)
+            - slot: (B, slot_dim)
+            - meta: The passed-in metadata
         """
         # Ensure batch dim
         if context_embedding.dim() == 1:
@@ -95,7 +92,6 @@ class HippocampalEncoder(nn.Module):
             x = context_embedding
 
         key, slot, _ = self.forward(x)
-        
         return key, slot, meta
 
     def batch_write(self, list_of_contexts: Union[List[torch.Tensor], torch.Tensor]) -> List[Tuple[torch.Tensor, torch.Tensor]]:

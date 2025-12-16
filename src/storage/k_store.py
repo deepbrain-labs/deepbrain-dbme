@@ -94,3 +94,11 @@ class KStore(nn.Module):
         
     def load(self, path: str):
         self.load_state_dict(torch.load(path))
+
+    def export_all_data(self):
+        """Exports all keys, values, and metadata from the store."""
+        return {
+            "keys": self.keys[:self.size].cpu().numpy(),
+            "values": self.values[:self.size].cpu().numpy(),
+            "metadata": [self.meta_store.get(i, {}) for i in range(self.size)]
+        }
