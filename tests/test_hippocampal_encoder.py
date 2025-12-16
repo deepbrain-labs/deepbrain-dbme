@@ -26,7 +26,8 @@ class TestHippocampalEncoder(unittest.TestCase):
         # Test write (single item)
         # write expects (input_dim) or (1, input_dim)
         x_single = torch.randn(input_dim)
-        k, s, m = he.write(x_single, meta={'id': 1})
+        write_output = he.write(x_single, meta={'id': 1})
+        k, s, m = write_output['key'], write_output['slot'], write_output['meta']
         self.assertEqual(k.shape, (1, key_dim))
         self.assertEqual(s.shape, (1, slot_dim))
         self.assertEqual(m['id'], 1)

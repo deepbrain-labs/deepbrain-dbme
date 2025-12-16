@@ -37,13 +37,14 @@ def test_memory_correctness():
         with torch.no_grad():
             _, embedding = lm(inputs.input_ids)
             fact_embeddings.append(embedding.mean(dim=1))
-            key, slot, _ = he.write(embedding.mean(dim=1))
+            write_output = he.write(embedding.mean(dim=1))
+            key, slot = write_output['key'], write_output['slot']
             es.add(key.detach(), slot.detach())
 
         query_inputs = tokenizer(fact, return_tensors='pt', padding=True, truncation=True)
         with torch.no_grad():
             _, query_embedding = lm(query_inputs.input_ids)
-            query_key, _, _ = he.write(query_embedding.mean(dim=1))
+            query_key = he.write(query_embedding.mean(dim=1))['key']
             retrieval_results = es.retrieve(query_key, k=1)
             retrieved_slots = retrieval_results["slots"]
 

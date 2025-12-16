@@ -18,15 +18,16 @@ config_name: "base_gpt2"
 
 model:
   name: "gpt2"
-  max_length: 512
   language_model:
     input_dim: 768
     hidden_dim: 768
+    vocab_size: 50257
+    max_length: 512
+    key_dim: 128
   hippocampal_encoder:
     input_dim: 768
     slot_dim: 256
     key_dim: 128
-  vocab_size: 50257
   router:
     input_dim: 768
 
