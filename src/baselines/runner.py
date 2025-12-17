@@ -160,7 +160,9 @@ class RetrievalBaseline(Baseline):
     def get_memory_bytes(self):
         return self.store.size * (256 + 128) * 4
 
-def evaluate_baseline(baseline_name, output_file):
+def evaluate_baseline(baseline_name, output_file, seed=42):
+    torch.manual_seed(seed)
+    np.random.seed(seed)
     sessions, queries_by_session = load_data()
     
     if baseline_name == "kv_cache":
@@ -208,6 +210,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--baseline", type=str, required=True, choices=["kv_cache", "retrieval", "compressive"])
     parser.add_argument("--output", type=str, required=True)
+    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
     
-    evaluate_baseline(args.baseline, args.output)
+    evaluate_baseline(args.baseline, args.output, seed=args.seed)

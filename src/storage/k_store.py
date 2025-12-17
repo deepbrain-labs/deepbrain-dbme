@@ -83,11 +83,62 @@ class KStore(nn.Module):
             "router_confidence": router_confidence,
         }
 
-    def clear(self):
-        self.keys.zero_()
-        self.values.zero_()
-        self.size = 0
-        self.meta_store = {}
+    def remove_indices(self, indices_to_remove: List[int]):
+        """
+        Removes items at specified indices by shifting the buffer. 
+        Note: This changes indices of subsequent items.
+        """
+        if not indices_to_remove:
+            return
+            
+        # Sort descending to remove effectively
+        indices_to_remove = sorted(list(set(indices_to_remove)), reverse=True)
+        
+        for idx in indices_to_remove:
+            if idx >= self.size: continue
+            
+            # Shift everything after idx down by one
+            if idx < self.size - 1:
+                self.keys[idx:self.size-1] = self.keys[idx+1:self.size].clone()
+                self.values[idx:self.size-1] = self.values[idx+1:self.size].clone()
+                
+                # Shift metadata? Metadata uses index as key.
+                # We need to rebuild meta_store map.
+                # This is O(N) but KStore is usually small-ish (prototypes).
+                pass
+
+        # Rebuild metadata is tricky with shifting. 
+        # Simpler approach: Create new buffers and copy over kept items.
+        keep_mask = torch.ones(self.size, dtype=torch.bool, device=self.keys.device)
+        keep_mask[indices_to_remove] = False
+        
+        new_size = keep_mask.sum().item()
+        
+        self.keys[:new_size] = self.keys[:self.size][keep_mask]
+        self.values[:new_size] = self.values[:self.size][keep_mask]
+        
+        # Rebuild meta
+        new_meta = {}
+        old_indices = torch.arange(self.size, device=self.keys.device)[keep_mask].tolist()
+        for new_idx, old_idx in enumerate(old_indices):
+            if old_idx in self.meta_store:
+                new_meta[new_idx] = self.meta_store[old_idx]
+        
+        self.meta_store = new_meta
+        self.size = new_size
+        
+        # Zero out rest
+        self.keys[self.size:].zero_()
+        self.values[self.size:].zero_()
+
+    def update_weights(self, indices: List[int], factor: float):
+        """
+        Reweight (scale) values at specified indices. 
+        Negative factor could simulate inhibition.
+        """
+        for idx in indices:
+            if idx < self.size:
+                self.values[idx] *= factor
 
     def save(self, path: str):
         torch.save(self.state_dict(), path)

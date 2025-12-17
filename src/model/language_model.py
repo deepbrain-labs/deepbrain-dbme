@@ -69,8 +69,33 @@ class LanguageModelWithAdapter(nn.Module):
         logits = self.lm_head(features)
         return logits, features
 
-    def generate(self, input_ids: torch.Tensor, memory_context: Optional[torch.Tensor] = None, **kwargs):
-        return self.base_model.generate(input_ids, **kwargs)
+    def get_alpha(self):
+        if hasattr(self, 'fusion_module') and hasattr(self.fusion_module, 'alpha'):
+            return self.fusion_module.alpha.item()
+        return None
+
+    def generate(self, input_ids: torch.Tensor, memory_context: Optional[torch.Tensor] = None, max_new_tokens: int = 10, pad_token_id: int = 50256, **kwargs):
+        """
+        Custom greedy generation loop to ensure memory_context is used in the forward pass.
+        The base_model.generate() would bypass our forward() and thus ignore memory.
+        """
+        generated = input_ids
+        
+        for _ in range(max_new_tokens):
+            # We strictly use our forward which includes memory fusion
+            logits, _ = self.forward(generated, memory_context=memory_context)
+            
+            # Greedy decode
+            next_token_logits = logits[:, -1, :]
+            next_token = torch.argmax(next_token_logits, dim=-1).unsqueeze(-1)
+            
+            generated = torch.cat((generated, next_token), dim=1)
+            
+            # Simple stopping condition
+            if pad_token_id is not None and (next_token == pad_token_id).all():
+                break
+                
+        return generated
 
     def freeze_base_model(self):
         for name, param in self.base_model.named_parameters():

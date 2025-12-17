@@ -15,6 +15,7 @@ from src.model.router import Router
 from src.storage.episodic_store import EpisodicStore
 from src.storage.k_store import KStore
 from src.model.consolidator import Consolidator
+from src.evaluation.metrics import compute_metrics
 
 def run_consolidation_eval(config_path="configs/base_config.yaml", output_file="results/c2_consolidation.json"):
     # Setup similar to DBME Retention
@@ -72,46 +73,60 @@ def run_consolidation_eval(config_path="configs/base_config.yaml", output_file="
                     "correct": fact['a'].lower() in ans.lower()
                 })
 
-    print("Phase 2: Consolidation")
-    # Consolidate ES -> KStore
-    # 1. Get all slots from ES
-    data = estore.export_all_data()
-    keys = torch.stack(data['keys']).to(device)
-    slots = torch.stack(data['slots']).to(device)
+    print("Phase 2: Consolidation Ablations")
     
-    # 2. Run consolidator
-    prototypes, labels = consolidator.find_prototypes(keys, slots)
+    configs = [
+        {"name": "Standard (K=10)", "mode": "prototype", "K": 10, "rehearsal": 0},
+        {"name": "Denoised (K=10)", "mode": "denoised", "K": 10, "rehearsal": 0},
+        {"name": "Rehearsal (K=10, R=5)", "mode": "prototype", "K": 10, "rehearsal": 5},
+    ]
     
-    # 3. Write to KStore
-    if prototypes:
-        proto_keys, proto_slots = zip(*prototypes)
-        kstore.add(torch.stack(proto_keys), torch.stack(proto_slots), meta={'consolidated': True})
+    # Get Data from ES
+    es_data = estore.export_all_data()
+    all_keys = torch.stack(es_data['keys']).to(device)
+    all_slots = torch.stack(es_data['slots']).to(device)
     
-    # 4. Clear ES (Sleep)
-    estore.clear()
-    
-    print("Phase 3: Post-Consolidation QA")
-    # Measure Post-Consolidation (from KStore)
-    for fact in facts:
-        for q_text in [fact['q']] + fact['para']:
-            q_tok = tokenizer.encode(q_text, return_tensors='pt').to(device)
-            with torch.no_grad():
-                _, q_feats = lm(q_tok)
-                q_emb = q_feats.mean(dim=1)
-                q_key, _, _ = encoder.forward(q_emb)
-                
-                ret = kstore.retrieve(q_key, k=3)
-                mem = ret['slots'].mean(dim=1)
-                out = lm.generate(q_tok, memory_context=mem, max_new_tokens=10)
-                ans = tokenizer.decode(out[0][len(q_tok[0]):], skip_special_tokens=True).strip()
-                
-                results.append({
-                    "fact_id": fact['id'],
-                    "phase": "post_consolidation",
-                    "query": q_text,
-                    "generated": ans,
-                    "correct": fact['a'].lower() in ans.lower()
-                })
+    for cfg in configs:
+        print(f"\nRunning Config: {cfg['name']}")
+        
+        # Fresh KStore per config testing
+        kstore_test = KStore(128, 256, 10000).to(device)
+        
+        cons = Consolidator(mode=cfg['mode'], n_prototypes=cfg['K'], dimension=256, n_rehearsal=cfg['rehearsal'])
+        
+        prototypes, _ = cons.find_prototypes(all_keys, all_slots)
+        
+        if prototypes:
+            p_keys, p_slots = zip(*prototypes)
+            kstore_test.add(torch.stack(p_keys), torch.stack(p_slots), meta={'consolidated': True})
+            
+        # Eval
+        score = 0
+        total = 0
+        for fact in facts:
+            for q_text in [fact['q']] + fact['para']:
+                q_tok = tokenizer.encode(q_text, return_tensors='pt').to(device)
+                with torch.no_grad():
+                    _, q_feats = lm(q_tok)
+                    q_emb = q_feats.mean(dim=1)
+                    q_key, _, _ = encoder.forward(q_emb)
+                    
+                    ret = kstore_test.retrieve(q_key, k=3)
+                    mem = ret['slots'].mean(dim=1)
+                    out = lm.generate(q_tok, memory_context=mem, max_new_tokens=10)
+                    ans = tokenizer.decode(out[0][len(q_tok[0]):], skip_special_tokens=True).strip()
+                    
+                    # Robust Scoring (Phase I fix)
+                    metrics = compute_metrics(ans, fact['a'])
+                    if metrics['semantic_match']: 
+                        score += 1
+                    total += 1
+                    
+        print(f"  Accuracy (Semantic): {score}/{total} ({score/total:.2%})")
+        results.append({
+            "config": cfg['name'],
+            "accuracy": score/total
+        })
 
     with open(output_file, "w") as f:
         json.dump(results, f, indent=2)

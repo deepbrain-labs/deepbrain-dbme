@@ -1,0 +1,18 @@
+[
+  {
+    "condition": "forgetting_off",
+    "generated": "Person_77 is a member of the",
+    "stale_present": false,
+    "correct_present": false,
+    "stale_retrieved": true,
+    "correct_retrieved": true
+  },
+  {
+    "condition": "forgetting_on",
+    "generated": "Person_77 is a member of the",
+    "stale_present": false,
+    "correct_present": false,
+    "stale_retrieved": true,
+    "correct_retrieved": true
+  }
+]

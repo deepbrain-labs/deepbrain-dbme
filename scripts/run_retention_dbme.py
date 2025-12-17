@@ -15,7 +15,9 @@ from src.storage.episodic_store import EpisodicStore
 from src.storage.k_store import KStore
 from src.baselines.utils import load_data
 
-def run_dbme_retention(config_path="configs/base_config.yaml", output_file="results/dbme_retention.json", checkpoint_path="checkpoint_5.pt"):
+def run_dbme_retention(config_path="configs/base_config.yaml", output_file="results/dbme_retention.json", checkpoint_path="checkpoint_5.pt", seed=42):
+    torch.manual_seed(seed)
+    np.random.seed(seed)
     with open(config_path) as f:
         config = yaml.safe_load(f)
         
@@ -71,6 +73,7 @@ def run_dbme_retention(config_path="configs/base_config.yaml", output_file="resu
     results = []
     
     print(f"Processing {len(sessions)} sessions...")
+    alphas = []
     
     for session in tqdm(sessions):
         sid = session['session_id']
@@ -134,10 +137,14 @@ def run_dbme_retention(config_path="configs/base_config.yaml", output_file="resu
                 correct = q['expected_answer'].lower() in ans.lower()
                 
                 mem_bytes = estore.size * (256+128)*4 + kstore.size * (256+128)*4
+                current_alpha = lm.get_alpha()
+                if current_alpha is not None:
+                    alphas.append(current_alpha)
                 
                 res = {
                     "fact_id": q['fact_id'],
                     "delay": q['delay'],
+                    "alpha": lm.get_alpha(),
                     "correct": correct,
                     "memory_bytes_used": mem_bytes,
                     "retrieval_source": retrieval_source,
@@ -152,6 +159,13 @@ def run_dbme_retention(config_path="configs/base_config.yaml", output_file="resu
     with open(output_file, "w") as f:
         json.dump(results, f, indent=2)
     print(f"Saved DBME results to {output_file}")
+    if alphas:
+        print(f"Alpha Stats: Mean={np.mean(alphas):.4f}, Std={np.std(alphas):.4f}")
+        print("If Alpha ≈ 0, memory influence is blocked. Consider pretraining adapter.")
 
 if __name__ == "__main__":
-    run_dbme_retention()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--seed", type=int, default=42)
+    args = parser.parse_args()
+    run_dbme_retention(seed=args.seed)

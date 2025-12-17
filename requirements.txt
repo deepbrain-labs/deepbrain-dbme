@@ -8,5 +8,7 @@ pyyaml
 scikit-learn
 accelerate
 einops
-# Use faiss-gpu if running on GPU, otherwise faiss-cpu
+# Use faiss-gpu
+sentence-transformers
+ if running on GPU, otherwise faiss-cpu
 faiss-gpu

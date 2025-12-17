@@ -1,0 +1,86 @@
+[
+  {
+    "fact_id": "f1",
+    "phase": "pre_consolidation",
+    "query": "Where does Person_A live?",
+    "generated": "Person_A is a class that is",
+    "correct": false
+  },
+  {
+    "fact_id": "f1",
+    "phase": "pre_consolidation",
+    "query": "Where is Person_A based?",
+    "generated": "Person_A is a class that is",
+    "correct": false
+  },
+  {
+    "fact_id": "f1",
+    "phase": "pre_consolidation",
+    "query": "Which city is Person_A in?",
+    "generated": "The city is Person_A in?",
+    "correct": false
+  },
+  {
+    "fact_id": "f2",
+    "phase": "pre_consolidation",
+    "query": "What does Person_B study?",
+    "generated": "Person_B is a tool that allows",
+    "correct": false
+  },
+  {
+    "fact_id": "f2",
+    "phase": "pre_consolidation",
+    "query": "What is Person_B's major?",
+    "generated": "Person_B is a class that is",
+    "correct": false
+  },
+  {
+    "fact_id": "f2",
+    "phase": "pre_consolidation",
+    "query": "Person_B is a student of?",
+    "generated": "A: Yes.\n\nQ:",
+    "correct": false
+  },
+  {
+    "fact_id": "f1",
+    "phase": "post_consolidation",
+    "query": "Where does Person_A live?",
+    "generated": "Person_A is a class that is",
+    "correct": false
+  },
+  {
+    "fact_id": "f1",
+    "phase": "post_consolidation",
+    "query": "Where is Person_A based?",
+    "generated": "Person_A is a class that is",
+    "correct": false
+  },
+  {
+    "fact_id": "f1",
+    "phase": "post_consolidation",
+    "query": "Which city is Person_A in?",
+    "generated": "The city is Person_A in?",
+    "correct": false
+  },
+  {
+    "fact_id": "f2",
+    "phase": "post_consolidation",
+    "query": "What does Person_B study?",
+    "generated": "Person_B is a tool that allows",
+    "correct": false
+  },
+  {
+    "fact_id": "f2",
+    "phase": "post_consolidation",
+    "query": "What is Person_B's major?",
+    "generated": "Person_B is a class that is",
+    "correct": false
+  },
+  {
+    "fact_id": "f2",
+    "phase": "post_consolidation",
+    "query": "Person_B is a student of?",
+    "generated": "A: Yes.\n\nQ:",
+    "correct": false
+  }
+]
