@@ -43,13 +43,17 @@ class KVCacheBaseline(Baseline):
     def answer_query(self, query_data):
         query_text = query_data['query_text']
         input_ids = self.context + self.tokenizer.encode(query_text)
-        if len(input_ids) > self.max_len:
-            input_ids = input_ids[-self.max_len:]
+        max_new_tokens = 10
+        # Truncate to allow generation space
+        max_input_len = self.max_len - max_new_tokens
+        if len(input_ids) > max_input_len:
+            input_ids = input_ids[-max_input_len:]
         
         input_tensor = torch.tensor([input_ids], device=self.device)
+        attention_mask = torch.ones_like(input_tensor)
         
         with torch.no_grad():
-            out = self.model.generate(input_tensor, max_new_tokens=10, pad_token_id=self.tokenizer.eos_token_id)
+            out = self.model.generate(input_tensor, attention_mask=attention_mask, max_new_tokens=max_new_tokens, pad_token_id=self.tokenizer.eos_token_id)
         
         generated_ids = out[0][len(input_ids):]
         ans = self.tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
@@ -136,7 +140,13 @@ class RetrievalBaseline(Baseline):
             
             memory_context = memory_slots.mean(dim=1)
             
-            out = self.model.generate(tokens, memory_context=memory_context, max_new_tokens=10, pad_token_id=self.tokenizer.eos_token_id)
+            # Truncate if token length + generation > max context
+            max_new = 10
+            # Rough safety check: 1024 - 10 = 1014
+            if tokens.size(1) > 1014:
+                tokens = tokens[:, -1014:]
+            
+            out = self.model.generate(tokens, memory_context=memory_context, max_new_tokens=max_new, pad_token_id=self.tokenizer.eos_token_id)
             
         generated_ids = out[0][len(tokens[0]):]
         ans = self.tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
