@@ -1,0 +1,12 @@
+torch>=1.13.0
+transformers>=4.30.0
+numpy
+pandas
+matplotlib
+tqdm
+pyyaml
+scikit-learn
+accelerate
+einops
+# Use faiss-gpu if running on GPU, otherwise faiss-cpu
+faiss-gpu
