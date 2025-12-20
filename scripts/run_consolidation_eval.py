@@ -67,10 +67,14 @@ def run_consolidation_eval(config_path="configs/base_config.yaml", output_file="
                 
                 results.append({
                     "fact_id": fact['id'],
+                    "query_id": f"{fact['id']}_{q_text}",
+                    "delay": 0,
                     "phase": "pre_consolidation",
                     "query": q_text,
                     "generated": ans,
-                    "correct": fact['a'].lower() in ans.lower()
+                    "expected": fact['a'],
+                    "correct": fact['a'].lower() in ans.lower(),
+                    "memory_bytes": estore.size * (256+128)*4
                 })
 
     print("Phase 2: Consolidation Ablations")
@@ -116,11 +120,15 @@ def run_consolidation_eval(config_path="configs/base_config.yaml", output_file="
                     
                     results.append({
                         "fact_id": fact['id'],
+                        "query_id": f"{fact['id']}_{q_text}",
+                        "delay": 0,
                         "phase": "post_consolidation",
                         "query": q_text,
                         "generated": ans,
+                        "expected": fact['a'],
                         "correct": fact['a'].lower() in ans.lower(),
-                        "config": cfg['name']
+                        "config": cfg['name'],
+                        "memory_bytes": kstore_test.size * (256+128)*4
                     })
 
     with open(output_file, "w") as f:

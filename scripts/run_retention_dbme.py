@@ -144,10 +144,11 @@ def run_dbme_retention(config_path="configs/base_config.yaml", output_file="resu
                 
                 res = {
                     "fact_id": q['fact_id'],
+                    "query_id": q['query_id'],
                     "delay": q['delay'],
                     "alpha": lm.get_alpha(),
                     "correct": correct,
-                    "memory_bytes_used": mem_bytes,
+                    "memory_bytes": mem_bytes,
                     "retrieval_source": retrieval_source,
                     "generated": ans,
                     "expected": q['expected_answer'],

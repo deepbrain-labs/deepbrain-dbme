@@ -124,10 +124,14 @@ def run_forgetting_eval(config_path="configs/base_config.yaml", output_file="res
             ans = tokenizer.decode(out[0][len(q_tok[0]):], skip_special_tokens=True).strip()
             
             results.append({
-                "condition": cond,
+                "fact_id": "Person_77_Fact",
+                "query_id": f"forget_eval_{cond}",
+                "delay": 1, # Represents the single time step
                 "generated": ans,
-                "stale_present": "Paris" in ans,
-                "correct_present": "Berlin" in ans,
+                "expected": "Berlin",
+                "correct": "Berlin" in ans and "Paris" not in ans,
+                "memory_bytes": store.size * (256+128)*4,
+                "condition": cond,
                 "stale_retrieved": stale_retrieved,
                 "correct_retrieved": correct_retrieved
             })
