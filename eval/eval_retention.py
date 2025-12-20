@@ -16,7 +16,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.evaluation.metrics import compute_metrics as robust_score
 
-def compute_metrics(results):
+def compute_and_process_metrics(results):
     if not results:
         return {}
     
@@ -118,7 +118,7 @@ def main():
     
     for name, path in files.items():
         res = load_results(path)
-        m = compute_metrics(res)
+        m = compute_and_process_metrics(res)
         metrics_map[name] = m
         
         if m:

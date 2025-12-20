@@ -13,8 +13,11 @@ def check_c1(results_file="results/dbme_retention.json"):
 def check_c2(results_file="results/c2_consolidation.json"):
     if not os.path.exists(results_file): return "Missing"
     with open(results_file) as f: res = json.load(f)
-    pre = [r for r in res if r['phase'] == 'pre_consolidation']
-    post = [r for r in res if r['phase'] == 'post_consolidation']
+    pre = [r for r in res if r.get('phase') == 'pre_consolidation']
+    post = [r for r in res if r.get('phase') == 'post_consolidation']
+    unknown = [r for r in res if 'phase' not in r]
+    if unknown:
+        print(f"WARNING: {len(unknown)} consolidation records missing 'phase' key. See results/c2_consolidation.json")
     pre_acc = sum(r['correct'] for r in pre) / len(pre) if pre else 0
     post_acc = sum(r['correct'] for r in post) / len(post) if post else 0
     return f"Pre: {pre_acc:.2f}, Post: {post_acc:.2f} (Delta: {post_acc - pre_acc:.2f})"

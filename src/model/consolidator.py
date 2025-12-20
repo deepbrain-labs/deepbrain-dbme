@@ -102,10 +102,33 @@ class Consolidator:
         if self.impl is None: return [], None
 
         slots_np = slots.cpu().detach().numpy()
+        
+        # --- Diagnostic Logging ---
+        import time, json, os
+        diag_log = {
+            "timestamp": time.time(),
+            "n_slots_sampled": slots_np.shape[0],
+            "mode": self.mode,
+            "n_rehearsal": self.n_rehearsal
+        }
+        # --- End ---
+
         self.impl.consolidate(slots_np)
 
         if self.impl.prototypes is None:
+            diag_log["status"] = "failed_no_prototypes"
             return [], None
+
+        # --- Diagnostic Logging ---
+        diag_log.update({
+            "k_clusters": self.impl.prototypes.shape[0],
+            "prototype_norms_mean": float(np.mean(np.linalg.norm(self.impl.prototypes, axis=1))),
+            "prototype_contrib_counts": [int(c) for c in np.bincount(self.impl.labels)] if self.impl.labels is not None else []
+        })
+        os.makedirs("logs", exist_ok=True)
+        with open("logs/consolidation_diag.jsonl", "a") as f:
+            f.write(json.dumps(diag_log) + "\n")
+        # --- End ---
 
         # Prototype Selection
         prototypes_tensor = torch.from_numpy(self.impl.prototypes).to(slots.device)

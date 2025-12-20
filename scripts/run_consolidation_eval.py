@@ -101,8 +101,6 @@ def run_consolidation_eval(config_path="configs/base_config.yaml", output_file="
             kstore_test.add(torch.stack(p_keys), torch.stack(p_slots), meta={'consolidated': True})
             
         # Eval
-        score = 0
-        total = 0
         for fact in facts:
             for q_text in [fact['q']] + fact['para']:
                 q_tok = tokenizer.encode(q_text, return_tensors='pt').to(device)
@@ -116,17 +114,14 @@ def run_consolidation_eval(config_path="configs/base_config.yaml", output_file="
                     out = lm.generate(q_tok, memory_context=mem, max_new_tokens=10)
                     ans = tokenizer.decode(out[0][len(q_tok[0]):], skip_special_tokens=True).strip()
                     
-                    # Robust Scoring (Phase I fix)
-                    metrics = compute_metrics(ans, fact['a'])
-                    if metrics['semantic_match']: 
-                        score += 1
-                    total += 1
-                    
-        print(f"  Accuracy (Semantic): {score}/{total} ({score/total:.2%})")
-        results.append({
-            "config": cfg['name'],
-            "accuracy": score/total
-        })
+                    results.append({
+                        "fact_id": fact['id'],
+                        "phase": "post_consolidation",
+                        "query": q_text,
+                        "generated": ans,
+                        "correct": fact['a'].lower() in ans.lower(),
+                        "config": cfg['name']
+                    })
 
     with open(output_file, "w") as f:
         json.dump(results, f, indent=2)

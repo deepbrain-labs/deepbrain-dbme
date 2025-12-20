@@ -153,3 +153,10 @@ class KStore(nn.Module):
             "values": self.values[:self.size].cpu().numpy(),
             "metadata": [self.meta_store.get(i, {}) for i in range(self.size)]
         }
+
+    def clear(self):
+        """Clears the contents of the store."""
+        self.keys.zero_()
+        self.values.zero_()
+        self.size = 0
+        self.meta_store = {}
