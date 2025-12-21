@@ -74,7 +74,7 @@ class AdapterFusion(nn.Module):
             return hidden_states
             
         if memory_slots.dim() == 2:
-            memory_slots = memory_slots.unsqueeze(1) # Ensure K dimension exists
+            memory_slots = memory_slots.unsqueeze(1) # (B, 1, D)
 
         # Query: hidden_states, Key/Value: memory_slots
         attn_out, _ = self.cross_attn(hidden_states, memory_slots, memory_slots)
