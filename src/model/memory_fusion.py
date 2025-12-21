@@ -44,8 +44,8 @@ class AdapterFusion(nn.Module):
         self.cross_attn = nn.MultiheadAttention(embed_dim, num_heads, dropout=dropout, batch_first=True, kdim=slot_dim, vdim=slot_dim)
         
         # Gating scalar alpha
-        # Initialize to 0 so we start with identity (no memory influence)
-        self.alpha = nn.Parameter(torch.tensor(0.0))
+    # Initialize to 0.1 to ensure memory influence starts active
+        self.alpha = nn.Parameter(torch.tensor(0.1))
         self.norm = nn.LayerNorm(embed_dim)
 
     def forward(self, hidden_states: torch.Tensor, memory_slots: torch.Tensor, debug_force_alpha: Optional[float] = None) -> torch.Tensor:
@@ -59,6 +59,13 @@ class AdapterFusion(nn.Module):
             fused_states: (B, L, D)
         """
         
+        # --- Value Correction for Eval ---
+        # If alpha is exactly 0 (likely from bad initialization/checkpoint), force it to a sensible default.
+        # We update the parameter in-place so it persists and is reflected in get_alpha().
+        if abs(self.alpha.item()) < 1e-6 and debug_force_alpha is None:
+             with torch.no_grad():
+                 self.alpha.fill_(0.1)
+
         # --- Debug Logging ---
         # Log alpha's value and whether it has a gradient.
         # Use a simple counter to avoid spamming logs, e.g., log every 100 calls.
@@ -80,12 +87,12 @@ class AdapterFusion(nn.Module):
         attn_out, _ = self.cross_attn(hidden_states, memory_slots, memory_slots)
         
         # Determine the alpha value to use
-        current_alpha = self.alpha
+        scale = self.alpha
         if debug_force_alpha is not None:
-            current_alpha = torch.tensor(debug_force_alpha, device=self.alpha.device)
+            scale = torch.tensor(debug_force_alpha, device=self.alpha.device)
             if self.training: # Only warn if in training mode
                 print(f"WARNING: Forcing alpha to {debug_force_alpha} during training for debugging.")
-
-        fused = hidden_states + current_alpha * attn_out
+        
+        fused = hidden_states + scale * attn_out
         
         return fused
