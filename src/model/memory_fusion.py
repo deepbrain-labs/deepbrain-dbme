@@ -48,24 +48,28 @@ class AdapterFusion(nn.Module):
         self.alpha = nn.Parameter(torch.tensor(0.0))
         self.norm = nn.LayerNorm(embed_dim)
 
-    def forward(self, hidden_states: torch.Tensor, memory_slots: torch.Tensor) -> torch.Tensor:
+    def forward(self, hidden_states: torch.Tensor, memory_slots: torch.Tensor, debug_force_alpha: Optional[float] = None) -> torch.Tensor:
         """
         Args:
             hidden_states: (B, L, D) - Current LM hidden states.
             memory_slots: (B, K, D) - Retrieved memory slots.
+            debug_force_alpha: If not None, forces alpha to this value.
             
         Returns:
             fused_states: (B, L, D)
         """
-        # Residual connection structure: x + alpha * Attn(Norm(x), M, M)
-        # OR Attn(x, M, M)? LayerNorm position varies. 
-        # "Adapter design: ... gating scalar alpha learned to weight memory influence"
         
-        # Standard Pre-Norm or Post-Norm. Let's use Post-Norm behavior for the residual block or 
-        # just follow simple adapter pattern:
-        # out = x + alpha * CrossAttn(x, mem, mem)
-        
-        # Check shapes
+        # --- Debug Logging ---
+        # Log alpha's value and whether it has a gradient.
+        # Use a simple counter to avoid spamming logs, e.g., log every 100 calls.
+        if not hasattr(self, 'call_count'):
+            self.call_count = 0
+        if self.call_count % 100 == 0:
+            grad_status = self.alpha.grad.item() if self.alpha.grad is not None else "None"
+            print(f"[AdapterFusion] Step {self.call_count}: alpha={self.alpha.item():.4f}, grad={grad_status}")
+        self.call_count += 1
+        # --- End Debug ---
+
         if memory_slots.size(1) == 0:
             return hidden_states
             
@@ -75,10 +79,13 @@ class AdapterFusion(nn.Module):
         # Query: hidden_states, Key/Value: memory_slots
         attn_out, _ = self.cross_attn(hidden_states, memory_slots, memory_slots)
         
-        fused = hidden_states + self.alpha * attn_out
-        
-        # Optional: Add FFN? Prompt say "1 multi-head cross-attention with gating scalar". 
-        # Usually adapters have FFN, but prompt didn't strictly ask.
-        # I'll stick to CrossAttn.
+        # Determine the alpha value to use
+        current_alpha = self.alpha
+        if debug_force_alpha is not None:
+            current_alpha = torch.tensor(debug_force_alpha, device=self.alpha.device)
+            if self.training: # Only warn if in training mode
+                print(f"WARNING: Forcing alpha to {debug_force_alpha} during training for debugging.")
+
+        fused = hidden_states + current_alpha * attn_out
         
         return fused

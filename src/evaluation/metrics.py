@@ -1,67 +1,45 @@
-import string
 import re
-from typing import List, Union
+from sentence_transformers import SentenceTransformer, util
 
-try:
-    from sentence_transformers import SentenceTransformer
-    _SBERT_MODEL = None
-except ImportError:
-    _SBERT_MODEL = None
-    print("Warning: sentence-transformers not found. Semantic metrics will be disabled.")
+# Load the model only once
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
-def get_sbert_model():
-    global _SBERT_MODEL
-    if _SBERT_MODEL is None:
-        try:
-            _SBERT_MODEL = SentenceTransformer('all-MiniLM-L6-v2')
-        except:
-            return None
-    return _SBERT_MODEL
-
-def normalize_text(text: str) -> str:
-    """
-    Normalize text by removing prompt artifacts, punctuation, and lowercasing.
-    """
-    # Remove "System:", "User:", etc.
-    text = re.sub(r'System:|User:', '', text, flags=re.IGNORECASE)
-    
-    # Lowercase
+def preprocess_text(text):
+    """Normalizes text by lowercasing, removing punctuation, and stripping whitespace."""
+    if not isinstance(text, str):
+        return ""
     text = text.lower()
-    
-    # Remove punctuation
-    text = text.translate(str.maketrans('', '', string.punctuation))
-    
-    # Strip whitespace
+    text = re.sub(r'[^\w\s]', '', text)
     return text.strip()
 
-def compute_metrics(generated: str, expected: str, semantic_threshold: float = 0.8) -> dict:
+def semantic_match(generated, expected, thresh=0.75):
     """
-    Compute Exact Match and Semantic Match metrics.
+    Checks for semantic similarity between generated and expected text.
+    Returns a boolean and the similarity score.
     """
-    norm_gen = normalize_text(generated)
-    norm_exp = normalize_text(expected)
+    g = preprocess_text(generated)
+    e = preprocess_text(expected)
+    if not g or not e:
+        return False, 0.0
     
-    # Exact Match (Normalized)
-    em = norm_exp in norm_gen # "in" check is looser than ==, good for QA
+    # The model.encode function can take a string or a list of strings.
+    # We pass single strings here.
+    sim = util.cos_sim(model.encode(g), model.encode(e)).item()
+    return sim >= thresh, sim
+
+def compute_metrics(generated, expected):
+    """
+    Computes a dictionary of robust metrics comparing generated and expected text.
+    """
+    processed_gen = preprocess_text(generated)
+    processed_exp = preprocess_text(expected)
     
-    # Semantic Match
-    semantic_match = False
-    score = 0.0
+    is_sem_match, sem_score = semantic_match(generated, expected)
     
-    model = get_sbert_model()
-    if model:
-        embeddings = model.encode([generated, expected])
-        from sklearn.metrics.pairwise import cosine_similarity
-        score = cosine_similarity([embeddings[0]], [embeddings[1]])[0][0]
-        if score > semantic_threshold:
-            semantic_match = True
-    else:
-        # Fallback if SBERT not available
-        semantic_match = em
-        score = 1.0 if em else 0.0
-        
     return {
-        "exact_match": em,
-        "semantic_match": semantic_match,
-        "semantic_score": float(score)
+        "exact_match": processed_gen == processed_exp,
+        "semantic_match": is_sem_match,
+        "semantic_score": sem_score,
+        "generated_processed": processed_gen,
+        "expected_processed": processed_exp
     }

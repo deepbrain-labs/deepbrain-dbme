@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["fact_id","query_id","delay","generated","expected","memory_bytes"],
+  "properties": {
+    "fact_id": {"type":"string"},
+    "query_id": {"type":"string"},
+    "delay": {"type":"number"},
+    "phase": {"type":"string"},
+    "generated": {"type":"string"},
+    "expected": {"type":"string"},
+    "correct": {"type":"boolean"},
+    "retrieval_at_1": {"type":"boolean"},
+    "retrieval_at_5": {"type":"boolean"},
+    "retrieval_source": {"type":"string"},
+    "alpha": {"type":"number"},
+    "memory_bytes": {"type":"integer"}
+  }
+}

@@ -243,3 +243,36 @@ class EpisodicStore(nn.Module):
         all_meta = [self.meta_store.get(int(self.ids_buffer[i].item()), {}) for i in range(self.size)]
         
         return {"keys": all_keys, "slots": all_slots, "meta": all_meta}
+
+    def __len__(self):
+        return self.size
+
+    def forget(self, fact_ids: List[str]):
+        """Removes items from the store based on fact_id in metadata."""
+        ids_to_remove = []
+        indices_to_remove = []
+        for i in range(self.size):
+            item_id = int(self.ids_buffer[i].item())
+            meta = self.meta_store.get(item_id, {})
+            if meta.get('fact_id') in fact_ids:
+                ids_to_remove.append(item_id)
+                indices_to_remove.append(i)
+
+        if not ids_to_remove:
+            return
+
+        # Remove from FAISS index
+        self.index.remove_ids(np.array(ids_to_remove, dtype=np.int64))
+
+        # Remove from buffers and meta_store
+        for index in sorted(indices_to_remove, reverse=True):
+            item_id = int(self.ids_buffer[index].item())
+            if item_id in self.meta_store:
+                del self.meta_store[item_id]
+            if index < self.size - 1:
+                self.keys_buffer[index:self.size-1] = self.keys_buffer[index+1:self.size].clone()
+                self.slots_buffer[index:self.size-1] = self.slots_buffer[index+1:self.size].clone()
+                self.ids_buffer[index:self.size-1] = self.ids_buffer[index+1:self.size].clone()
+            self.size -= 1
+        
+        self.pointer = self.size % self.capacity
