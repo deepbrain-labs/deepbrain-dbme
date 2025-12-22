@@ -1,0 +1,11 @@
+trial_id: "exp_a_retrieval"
+seed: 42
+model:
+  name: "gpt2"
+  max_length: 1024
+training:
+  device: "cuda"
+  loss_type: "ForCausalLMLoss"
+retrieval:
+  enabled: true
+  k: 5

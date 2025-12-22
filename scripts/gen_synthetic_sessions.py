@@ -118,8 +118,9 @@ def main():
 
     # 4. Save
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    with open(args.out, 'w') as f:
-        json.dump(sessions, f, indent=2)
+    with open(args.out, 'w', encoding='utf-8') as f:
+        for session in sessions:
+            f.write(json.dumps(session) + "\n")
         
     print(f"Generated {len(sessions)} sessions with {args.n_facts} unique facts.")
     print(f"Total queries scheduled: {sum(len(v) for v in queries_schedule.values())}")

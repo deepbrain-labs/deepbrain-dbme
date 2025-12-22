@@ -14,9 +14,9 @@ from src.model.hippocampal_encoder import HippocampalEncoder
 from src.model.router import Router
 from src.storage.episodic_store import EpisodicStore
 from src.storage.k_store import KStore
-from src.baselines.utils import load_data
+# from src.baselines.utils import load_data
 
-def run_dbme_retention(config_path="configs/base_config.yaml", output_file="results/dbme_retention.json", checkpoint_path="checkpoint_5.pt", seed=42):
+def run_dbme_retention(config_path="configs/base_config.yaml", output_file="results/dbme_retention.json", checkpoint_path="checkpoint_5.pt", seed=42, data_path="data/synthetic_sessions.jsonl"):
     torch.manual_seed(seed)
     np.random.seed(seed)
     with open(config_path) as f:
@@ -70,7 +70,14 @@ def run_dbme_retention(config_path="configs/base_config.yaml", output_file="resu
         print("No checkpoint found. Running with initialized weights.")
 
     tokenizer = GPT2Tokenizer.from_pretrained(config['model']['name'])
-    sessions, queries_by_session = load_data()
+    
+    # Load Data (JSONL)
+    print(f"Loading data from {data_path}...")
+    sessions = []
+    with open(data_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            sessions.append(json.loads(line))
+
     results = []
     
     print(f"Processing {len(sessions)} sessions...")
@@ -78,9 +85,13 @@ def run_dbme_retention(config_path="configs/base_config.yaml", output_file="resu
     
     for session in tqdm(sessions):
         sid = session['session_id']
-        turns = session['turns']
+        # Map 'utterances' to 'turns'
+        turns = session.get('utterances', session.get('turns', []))
+        
         injected_facts = session.get('injected_facts', [])
-        facts_by_turn = {f['time']: f for f in injected_facts}
+        # facts might be list of dicts with 'turn_index'
+        # gen_synthetic_sessions produces 'turn_index' 0-indexed relative to utterances list
+        facts_by_turn = {f.get('turn_index', -1): f for f in injected_facts}
         
         for i, turn in enumerate(turns):
             tokens = tokenizer.encode(turn, return_tensors='pt').to(device)
@@ -94,9 +105,17 @@ def run_dbme_retention(config_path="configs/base_config.yaml", output_file="resu
                 
                 key, slot, _ = encoder.write(ctx_emb)
                 estore.add(key, slot, meta=meta)
+                
+                # Consolidation Step (naive periodic)
+                if config['model']['consolidation']['frequency'] > 0:
+                    # Just simulate consolidation step count check if needed
+                    # For now we rely on external consolidation loop or implicit
+                    pass
         
-        if sid in queries_by_session:
-            for q in queries_by_session[sid]:
+        # Handle queries scheduled for this session
+        queries = session.get('queries', [])
+        if queries:
+            for q in queries:
                 query_text = q['query_text']
                 target_fact_id = q['fact_id']
                 q_tokens = tokenizer.encode(query_text, return_tensors='pt').to(device)
@@ -142,9 +161,12 @@ def run_dbme_retention(config_path="configs/base_config.yaml", output_file="resu
                 if current_alpha is not None:
                     alphas.append(current_alpha)
                 
+                # Use query_id if present, else construct one
+                q_id = q.get('query_id', f"{sid}_{target_fact_id}")
+                
                 res = {
                     "fact_id": q['fact_id'],
-                    "query_id": q['query_id'],
+                    "query_id": q_id,
                     "delay": q['delay'],
                     "alpha": lm.get_alpha(),
                     "correct": correct,
@@ -157,7 +179,7 @@ def run_dbme_retention(config_path="configs/base_config.yaml", output_file="resu
                 }
                 results.append(res)
                 
-    os.makedirs("results", exist_ok=True)
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, "w") as f:
         json.dump(results, f, indent=2)
     print(f"Saved DBME results to {output_file}")
@@ -169,5 +191,9 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--config", type=str, default="configs/base_config.yaml")
+    parser.add_argument("--data", type=str, default="data/synthetic_sessions.jsonl")
+    parser.add_argument("--out", type=str, default="results/dbme_retention.json")
     args = parser.parse_args()
-    run_dbme_retention(seed=args.seed)
+    
+    run_dbme_retention(config_path=args.config, output_file=args.out, seed=args.seed, data_path=args.data)

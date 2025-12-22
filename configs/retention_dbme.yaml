@@ -1,0 +1,29 @@
+trial_id: "exp_a_dbme"
+seed: 42
+output_dir: "results/retention/dbme"
+
+model:
+  name: "gpt2"
+  language_model:
+    input_dim: 768
+    hidden_dim: 768
+  hippocampal_encoder:
+    input_dim: 768
+    slot_dim: 256
+    key_dim: 128
+  router:
+    input_dim: 768
+    mode: "learned"
+  consolidation:
+    mode: "prototype"
+    frequency: 50
+    proto_k: 512
+    rehearsal_r: 10
+
+storage:
+  episodic_store:
+    capacity: 2000
+    eviction_policy: "importance_age"
+
+training:
+  device: "cuda"
