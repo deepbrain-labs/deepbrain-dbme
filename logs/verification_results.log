@@ -1,0 +1,34 @@
+--- Testing Eviction Policy (importance_age) ---
+ES Size: 10/10
+Stored IDs: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+Eviction Policy Test PASSED
+
+--- Testing Auxiliary Routing Supervision ---
+--- Grad info for HE ---
+trunk.0.weight True 393216
+trunk.0.bias True 512
+trunk.1.weight True 512
+trunk.1.bias True 512
+trunk.3.weight True 262144
+trunk.3.bias True 512
+trunk.4.weight True 512
+trunk.4.bias True 512
+key_head.weight True 65536
+key_head.bias True 128
+slot_head.weight True 131072
+slot_head.bias True 256
+--- Grad info for Router ---
+net.0.weight True 49152
+net.0.bias True 64
+net.1.weight True 64
+net.1.bias True 64
+net.3.weight True 128
+net.3.bias True 2
+Inserted item 1.
+Aux Scores: tensor([[1., 1.]])
+Aux IDs: [[1766391927200041400, 1766391927195393200]]
+Current Entry ID: 1766391927200041400
+Match found! Score: 1.0, ID: 1766391927195393200
+Routing Supervision Test PASSED
+
+ALL TESTS PASSED

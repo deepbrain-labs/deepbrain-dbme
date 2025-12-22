@@ -12,6 +12,7 @@ from torch.utils.data import DataLoader
 from typing import List, Dict, Any, Optional
 import os
 import time
+import csv
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from src.model.language_model import LanguageModelWithAdapter
@@ -106,6 +107,22 @@ class DeepBrainTrainer:
         self.print_grad_info(self.he, "HE")
         self.print_grad_info(self.router, "Router")
 
+        # Initialize CSV Logging
+        self.log_file = os.path.join(config.get("output_dir", "."), "training_log.csv")
+        os.makedirs(os.path.dirname(self.log_file), exist_ok=True)
+        with open(self.log_file, 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(["session_idx", "step", "Recall@1", "Recall@5", "AURC_partial", "LM_loss", "adapter_alpha", "ES_size", "KStore_size", "consolidation_time_ms"])
+
+        # Initialize Retention Logging
+        self.retention_log_file = os.path.join(config.get("output_dir", "."), "retention_log.csv")
+        # Always write header if new file (or overwrite if we want fresh logs for new run)
+        # Assuming one run per output_dir for now.
+        with open(self.retention_log_file, 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(["session_idx", "query_id", "delay", "fact_id", "retrieval_at_1", "retrieval_at_5", "generated", "expected", "correct"])
+
+
     def print_grad_info(self, model, name):
         print(f"--- Grad info for {name} ---")
         for n, p in model.named_parameters():
@@ -120,6 +137,7 @@ class DeepBrainTrainer:
         consolidation_frequency = self.config.get("model", {}).get("consolidation", {}).get("frequency", 10)
         checkpoint_interval = self.config.get('checkpoint_interval', 1000)
         insertion_mode = self.config.get("model", {}).get("insertion_mode", "per-utterance")
+        warm_start_steps = self.config.get("model", {}).get("router", {}).get("warm_start_steps", 0)
         
         self.lm.train()
         self.he.train()
@@ -150,6 +168,12 @@ class DeepBrainTrainer:
                 else:
                     # Mock: iter over tensor or list
                     utterances = session_data 
+                
+                # Check for queries to evaluate *before* or *after* training on this session?
+                # Usually queries check retention of *past* facts, so maybe before training on current session?
+                # Or after? The queries are scheduled for "Session S", usually meaning "At time T=S".
+                # Let's do it AFTER the session is processed, to simulate "After X sessions".
+
                 
                 session_loss = 0.0
                 
@@ -198,14 +222,14 @@ class DeepBrainTrainer:
                         utterance_embedding = ctx_emb[:, -1, :]
                         key, slot, _ = self.he.write(utterance_embedding)
                         # Temporarily remove .detach() for debugging gradient flow
-                        self.es.add(key, slot)
+                        entry_id = self.es.add(key, slot)
                     elif insertion_mode == "per-token":
                         # Process each token's embedding
                         for i in range(ctx_emb.shape[1]):
                             token_embedding = ctx_emb[:, i, :]
                             key, slot, _ = self.he.write(token_embedding)
                             # Temporarily remove .detach() for debugging gradient flow
-                            self.es.add(key, slot)
+                            entry_id = self.es.add(key, slot)
 
                     # SAFER APPROACH: Use slot in a differentiable path, then save a detached copy.
                     # Add auxiliary reconstruction loss for HE
@@ -242,6 +266,12 @@ class DeepBrainTrainer:
                         query_embedding = ctx_emb[:, -1, :]
                         key, _, _ = self.he.write(query_embedding)
                         route_choice, route_probs = self.router.route(query_embedding)
+                        
+                        # --- Warm-Start Override ---
+                        if step < warm_start_steps:
+                            # Force ES (0)
+                            route_choice = torch.zeros_like(route_choice)
+                        # ---------------------------
                         
                         retrieval_k = self.config.get("model", {}).get("retrieval_k", 5)
                         es_results = self.es.retrieve(key, k=retrieval_k)
@@ -329,8 +359,47 @@ class DeepBrainTrainer:
                     oracle_label = torch.tensor([0 if loss_es < loss_ks else 1], device=self.device)
 
 
-                    # B. Router Loss (Supervised)
+                    # B. Router Loss (Supervised + Auxiliary)
                     loss_router = self.criterion_router(route_probs, oracle_label)
+
+                    # --- Fix 2 Make: Auxiliary Routing Supervision ---
+                    # Logic: If exact match exists in ES (excluding self), force ES selection.
+                    # We perform a quick check.
+                    # Re-retrieve with exclusion logic or just check top-2
+                    if insertion_mode == "per-utterance":
+                         # query_embedding is already defined above
+                         # We need to check if ANY of the top-k (k=2 to be safe) is a match but NOT the current entry
+                         aux_results = self.es.retrieve(key, k=2)
+                         aux_scores = aux_results["scores"] # (B, k)
+                         aux_ids = aux_results["ids"] # List of lists
+
+                         has_exact_match = False
+                         # We iterate over batch (batch_size=1 usually)
+                         for b_idx in range(len(aux_ids)):
+                             row_ids = aux_ids[b_idx]
+                             row_scores = aux_scores[b_idx] 
+                             for r_idx, r_id in enumerate(row_ids):
+                                 # Score > 0.95 AND id != entry_id (if we have entry_id from add)
+                                 # We need to ensure we captured entry_id correctly above.
+                                 # In per-utterance, entry_id is single int (or list of 1).
+                                 
+                                 current_entry_id = entry_id if isinstance(entry_id, int) else entry_id[0]
+                                 
+                                 if row_scores[r_idx] > 0.95 and r_id != current_entry_id and r_id != -1:
+                                     has_exact_match = True
+                                     break
+                         
+                         if has_exact_match:
+                             # Force Router to ES (Index 0)
+                             aux_target = torch.tensor([0], device=self.device)
+                             loss_router_aux = self.criterion_router(route_probs, aux_target)
+                             
+                             # Add to main router loss or just total loss?
+                             # Let's add it to loss_router
+                             loss_router += loss_router_aux
+                    # -----------------------------------------------
+
+
                     lambda_router = 0.1 # As per user instructions
 
                     # C. Distillation Loss (KStore)
@@ -394,10 +463,18 @@ class DeepBrainTrainer:
                     step += 1
                     
                 # Periodic Consolidation
+                consolidation_duration = 0
                 if self.config.get('enable_consolidation', False):
                     if (session_idx + 1) % consolidation_frequency == 0:
                         print(f"Triggering consolidation after session {session_idx + 1}...")
+                        t0 = time.time()
                         self.consolidator.consolidate(self.es, self.kstore)
+                        t1 = time.time()
+                        consolidation_duration = (t1 - t0) * 1000
+                        print(f"Consolidation took {consolidation_duration:.2f} ms")
+                        
+                        # Snapshot after consolidation
+                        self.save_checkpoint(step, suffix=f"_consolidation_s{session_idx+1}")
                         
                 # Checkpointing
                 if step % checkpoint_interval == 0:
@@ -419,23 +496,196 @@ class DeepBrainTrainer:
                 print(f"  Avg Router Loss: {avg_router_loss:.4f}")
                 print(f"  Avg Distill Loss: {avg_distill_loss:.4f}")
 
+                # Calculate Metrics & Log
+                metrics = self.calculate_metrics()
+                with open(self.log_file, 'a', newline='') as f:
+                    writer = csv.writer(f)
+                    writer.writerow([
+                        session_idx, 
+                        step, 
+                        f"{metrics.get('Recall@1', 0.0):.4f}", 
+                        f"{metrics.get('Recall@5', 0.0):.4f}", 
+                        f"{metrics.get('AURC_partial', 0.0):.4f}", 
+                        f"{avg_loss:.4f}", 
+                        "N/A", # adapter_alpha not easily accessible from here without introspection
+                        self.es.size, 
+                        len(self.kstore) if hasattr(self.kstore, '__len__') else 0,
+                        f"{consolidation_duration:.2f}"
+                    ])
+
+                # Evaluate Queries for this session (if any)
+                if isinstance(session_data, dict) and 'queries' in session_data:
+                    self.evaluate_queries(session_idx, session_data['queries'])
+
+    def evaluate_queries(self, session_idx: int, queries: List[Dict]):
+        """
+        Evaluates a list of queries. 
+        Expected query format: {
+            "query_text": str,
+            "expected_answer": str,
+            "fact_id": str,
+            "delay": int,
+            ...
+        }
+        """
+        self.lm.eval()
+        self.he.eval()
+        self.router.eval()
+        
+        tokenizer = self.config.get("tokenizer") # Should be passed in config or accessible
+        if tokenizer is None:
+            # Fallback for now if not in config
+            tokenizer = AutoTokenizer.from_pretrained(self.config.get("model", {}).get("name", "gpt2"))
+            if tokenizer.pad_token is None: tokenizer.pad_token = tokenizer.eos_token
+            
+        with open(self.retention_log_file, 'a', newline='') as f:
+            writer = csv.writer(f)
+            
+            for q in queries:
+                q_text = q['query_text']
+                expected = q['expected_answer']
+                
+                # Tokenize
+                inputs = tokenizer(q_text, return_tensors="pt").to(self.device)
+                
+                with torch.no_grad():
+                     # 1. Get embedding
+                    _, q_features = self.lm(inputs.input_ids)
+                    q_emb = q_features.mean(dim=1) # (1, H) or use last token?
+                    # Using mean as per run_retention_dbme.py logic
+                    
+                    # 2. Route
+                    choices, probs = self.router.route(q_emb)
+                    choice = choices[0].item()
+                    
+                    # 3. Retrieve
+                    k_key, _, _ = self.he.write(q_emb)
+                    retrieval_k = self.config.get("model", {}).get("retrieval_k", 8)
+                    
+                    # Check both for analysis? Or follow router?
+                    # Let's check both for metrics, but use router for generation.
+                    es_ret = self.es.retrieve(k_key, k=retrieval_k)
+                    # k_ret = self.kstore.retrieve(k_key, k=retrieval_k)
+                    
+                    # Check Recall in ES (did we find the fact?)
+                    # We need the ground truth ID/embedding.
+                    # Limitations: We don't have the ground truth ID easily unless we tracked it.
+                    # But we can check if the generated answer is correct.
+                    # Use existing R@1 logic if 'fact_id' stored in meta.
+                    
+                    r1 = 0
+                    r5 = 0
+                    
+                    # Inspect retrieved meta
+                    # es_ret['meta'] is list of [meta1, meta2...] for batch elm 0
+                    found_fact = False
+                    if len(es_ret['meta']) > 0:
+                        metas = es_ret['meta'][0] # List of dicts
+                        for i, m in enumerate(metas):
+                             if m and m.get('fact_id') == q['fact_id']:
+                                 found_fact = True
+                                 if i == 0: r1 = 1
+                                 if i < 5: r5 = 1
+                    
+                    # 4. Generate
+                    # We need to construct memory context based on router
+                    if choice == 0:
+                        mem_context = es_ret['slots']
+                    else:
+                        k_ret = self.kstore.retrieve(k_key, k=retrieval_k)
+                        mem_context = k_ret['slots']
+                        
+                    # Collapse context
+                    mem_context_mean = mem_context.mean(dim=1)
+                    
+                    # Generate
+                    gen_out = self.lm.generate(inputs.input_ids, memory_context=mem_context_mean, max_new_tokens=15, pad_token_id=tokenizer.eos_token_id)
+                    gen_text = tokenizer.decode(gen_out[0][inputs.input_ids.shape[1]:], skip_special_tokens=True).strip()
+                    
+                    correct = expected.lower() in gen_text.lower()
+                    
+                    writer.writerow([
+                        session_idx,
+                        q.get('query_id', ''),
+                        q.get('delay', ''),
+                        q.get('fact_id', ''),
+                        r1,
+                        r5,
+                        gen_text,
+                        expected,
+                        correct
+                    ])
+        
+        self.lm.train()
+        self.he.train()
+        self.router.train()
+
+    def calculate_metrics(self) -> Dict[str, float]:
+        # Quick internal retention test on ES content
+        # Sample 20 items from ES and query them
+        if self.es.size < 5:
+             return {"Recall@1": 0.0, "Recall@5": 0.0, "AURC_partial": 0.0}
+        
+        # Determine sampling count
+        n_samples = min(20, self.es.size)
+        
+        # Get random sample of keys/slots from ES
+        # Note: ES structure access varies. Using public properties if available or buffer.
+        # Assuming we can access self.es.keys and self.es.values
+        
+        indices = torch.randperm(self.es.size)[:n_samples]
+        keys = self.es.keys_buffer[indices]
+        # We query with these keys
+        
+        r1, r5 = 0, 0
+        
+        results = self.es.retrieve(keys, k=5) 
+        # retrieved_ids: (B, k) - we need to check if the original id is in the retrieved set.
+        # But we need the IDs of our samples.
+        sample_ids = self.es.ids_buffer[indices] # (B,)
+        
+        retrieved_ids = results["ids"] # List of lists
+        
+        for i in range(n_samples):
+            target_id = int(sample_ids[i].item())
+            row_ids = retrieved_ids[i] # List of ints
+            
+            if target_id in row_ids[:1]:
+                r1 += 1
+            if target_id in row_ids[:5]:
+                r5 += 1
+                
+        metrics = {
+            "Recall@1": r1 / n_samples,
+            "Recall@5": r5 / n_samples,
+            "AURC_partial": (r1 + r5) / 2 / n_samples # Rough proxy
+        }
+        return metrics
+
         if self.config.get("evaluation", {}).get("adversarial_stale_facts"):
             result = adversarial_evaluator.evaluate_hallucination("the capital of France", "Paris")
             print(f"Adversarial evaluation result: {result}")
 
-    def save_checkpoint(self, step):
-        path = f"checkpoint_{step}.pt"
+    def save_checkpoint(self, step, suffix=""):
+        path = os.path.join(self.config.get("output_dir", "."), f"checkpoint_{step}{suffix}.pt")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         print(f"Saving checkpoint to {path}...")
         state = {
             'step': step,
             'lm_state': self.lm.state_dict(),
             'he_state': self.he.state_dict(),
             'router_state': self.router.state_dict(),
-            'es_state': self.es.state_dict(), # Custom save might be needed if buffers not standard
-            'kstore_state': self.kstore.state_dict(),
+            # 'es_state': self.es.state_dict(), # Saving entire ES might be huge?
+            # 'kstore_state': self.kstore.state_dict(),
             # optimizer states...
         }
         torch.save(state, path)
+        
+        # Save ES/KStore data separately if needed (user request: "save ES/KStore snapshots")
+        self.es.save(os.path.join(os.path.dirname(path), f"es_snapshot_{step}{suffix}.jsonl"))
+        # KStore save if implemented
+        if hasattr(self.kstore, 'save'):
+            self.kstore.save(os.path.join(os.path.dirname(path), f"kstore_snapshot_{step}{suffix}.jsonl"))
 
 def evaluate_retrieval(trainer, num_facts=100, num_queries=100):
     print("--- Starting ES-only Retrieval Validation ---")

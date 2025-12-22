@@ -1,0 +1,88 @@
+--- Testing Eviction Policy (importance_age) ---
+ES Size: 10/10
+Stored IDs: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+Eviction Policy Test PASSED
+
+--- Testing Auxiliary Routing Supervision ---
+--- Grad info for HE ---
+trunk.0.weight True 393216
+trunk.0.bias True 512
+trunk.1.weight True 512
+trunk.1.bias True 512
+trunk.3.weight True 262144
+trunk.3.bias True 512
+trunk.4.weight True 512
+trunk.4.bias True 512
+key_head.weight True 65536
+key_head.bias True 128
+slot_head.weight True 131072
+slot_head.bias True 256
+--- Grad info for Router ---
+net.0.weight True 49152
+net.0.bias True 64
+net.1.weight True 64
+net.1.bias True 64
+net.3.weight True 128
+net.3.bias True 2
+Inserted item 1.
+Aux Scores: tensor([[1., 1.]])
+Aux IDs: [[1766394515450388300, 1766394515440066400]]
+Current Entry ID: 1766394515450388300
+Match found! Score: 1.0, ID: 1766394515440066400
+Routing Supervision Test PASSED
+
+--- Testing Final Pre-Experiment Checks ---
+--- Grad info for HE ---
+trunk.0.weight True 393216
+trunk.0.bias True 512
+trunk.1.weight True 512
+trunk.1.bias True 512
+trunk.3.weight True 262144
+trunk.3.bias True 512
+trunk.4.weight True 512
+trunk.4.bias True 512
+key_head.weight True 65536
+key_head.bias True 128
+slot_head.weight True 131072
+slot_head.bias True 256
+--- Grad info for Router ---
+net.0.weight True 49152
+net.0.bias True 64
+net.1.weight True 64
+net.1.bias True 64
+net.3.weight True 128
+net.3.bias True 2
+Running 1 session to trigger logs/snapshots...
+Starting online training on cpu...
+[AdapterFusion] Step 0: alpha=0.1000, grad=None
+Triggering consolidation after session 1...
+C:\Users\bisha\AppData\Local\Programs\Python\Python313\Lib\site-packages\threadpoolctl.py:1226: RuntimeWarning: 
+Found Intel OpenMP ('libiomp') and LLVM OpenMP ('libomp') loaded at
+the same time. Both libraries are known to be incompatible and this
+can cause random crashes or deadlocks on Linux when loaded in the
+same Python program.
+Using threadpoolctl may cause crashes or deadlocks. For more
+information and possible workarounds, please see
+    https://github.com/joblib/threadpoolctl/blob/master/multiple_openmp.md
+
+  warnings.warn(msg, RuntimeWarning)
+Consolidation took 17870.16 ms
+Saving checkpoint to tmp_test_output\checkpoint_1_consolidation_s1.pt...
+
+Session 0 complete.
+  Avg Total Loss: 66.9415
+  Avg LM Loss (per token): 2.0795
+  Avg HE Recon Loss (per slot): 0.1741
+  Avg HE Direct Loss (per slot): 0.0589
+  Avg Router Loss: 0.5278
+  Avg Distill Loss: 0.0148
+Log content check:
+session_idx,step,Recall@1,Recall@5,AURC_partial,LM_loss,adapter_alpha,ES_size,KStore_size,consolidat...
+Output dir: D:\Github\deepbrain-dbme\tmp_test_output
+Output files: ['checkpoint_1_consolidation_s1.pt', 'es_snapshot_1_consolidation_s1.jsonl', 'kstore_snapshot_1_consolidation_s1.jsonl', 'training_log.csv']
+Final Pre-Experiment Checks PASSED
+
+ALL TESTS PASSED
+D
+
+ALL TESTS PASSED

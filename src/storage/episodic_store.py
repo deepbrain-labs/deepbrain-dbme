@@ -48,7 +48,7 @@ class EpisodicStore(nn.Module):
 
         for _ in range(batch_size):
             if self.size >= self.capacity:
-                if self.eviction_policy == 'importance' and self.size > 0:
+                if (self.eviction_policy == 'importance' or self.eviction_policy == 'importance_age') and self.size > 0:
                     min_importance = None
                     min_idx = None
                     for i in range(self.size):
@@ -275,4 +275,18 @@ class EpisodicStore(nn.Module):
                 self.ids_buffer[index:self.size-1] = self.ids_buffer[index+1:self.size].clone()
             self.size -= 1
         
+        
         self.pointer = self.size % self.capacity
+
+    def save(self, filepath: str):
+        """Saves values to a collection of jsonl (or just jsonl if small)"""
+        data = self.export_all_data()
+        # Convert tensors to lists
+        keys = [k.tolist() for k in data['keys']]
+        slots = [s.tolist() for s in data['slots']]
+        meta = data['meta']
+        
+        with open(filepath, 'w') as f:
+            for k, s, m in zip(keys, slots, meta):
+                record = {'key': k, 'slot': s, 'meta': m}
+                f.write(json.dumps(record) + "\n")

@@ -1,0 +1,45 @@
+trial_id: "exp_a_memory_pressure_001"
+seed: 42
+output_dir: "demos/models/exp_a"
+
+model:
+  name: "gpt2"
+  max_length: 512
+  language_model:
+    input_dim: 768
+    hidden_dim: 768
+  hippocampal_encoder:
+    input_dim: 768
+    slot_dim: 256
+    key_dim: 128
+  router:
+    input_dim: 768
+    mode: "learned"
+    warm_start_steps: 1000
+  consolidation:
+    mode: "prototype"
+    frequency: 10
+
+storage:
+  episodic_store:
+    capacity: 2000
+    eviction_policy: "importance_age"
+  k_store: {}
+
+training:
+  batch_size: 1
+  learning_rate: 2e-5
+  epochs: 1
+  device: "cuda"
+
+metrics:
+  - "retention_at_k"
+  - "perplexity"
+  - "hallucination_rate"
+  - "memory_bytes"
+  - "avg_latency_ms"
+
+faiss:
+  dimension: 128
+  index_type: "Flat"
+  metric: "inner_product"
