@@ -140,6 +140,11 @@ class Consolidator:
         # Current logic: Input keys/slots are usually "New Episodic Data".
         
         for proto_slot in prototypes_tensor:
+            pass # optimization: do all at once?
+        
+        # Doing it loopwise as in original to be safe, but fixing potential closure issue if any
+        # The original code iterated.
+        for proto_slot in prototypes_tensor:
             dists = torch.norm(slots - proto_slot, dim=1)
             closest_idx = torch.argmin(dists)
             prototype_keys.append(keys[closest_idx])
@@ -159,3 +164,30 @@ class Consolidator:
                 final_pairs.append((k, s))
 
         return final_pairs, self.impl.labels
+
+    def consolidate(self, es, kstore):
+        """
+        Consolidates memory from EpisodicStore (es) to KStore (kstore).
+        """
+        # 1. Extract data from ES
+        if es.size == 0:
+            print("Consolidation: ES is empty, nothing to consolidate.")
+            return
+
+        keys = es.keys
+        slots = es.values
+        
+        # 2. Find Prototypes
+        # keys: (N, K_dim), slots: (N, S_dim)
+        prototypes, labels = self.find_prototypes(keys, slots)
+        
+        # 3. Add to KStore
+        if prototypes:
+            # print(f"Consolidation: Found {len(prototypes)} prototypes from {es.size} items.")
+            count = 0
+            for k, s in prototypes:
+                kstore.add(k, s)
+                count += 1
+            # print(f"Consolidation: Added {count} items to KStore.")
+        else:
+            print("Consolidation: No prototypes found.")
